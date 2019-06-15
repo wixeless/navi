@@ -1,0 +1,44 @@
+package com.marvel.stark.di
+
+import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.marvel.stark.rest.LiveDataCallAdapterFactory
+import dagger.Module
+import dagger.Provides
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
+
+@Module
+class NetworkModule {
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun providesOkHttpClient(httpProfileInterceptor: OkHttpProfilerInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(httpProfileInterceptor)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    internal fun provideInterceptor(): OkHttpProfilerInterceptor {
+        return OkHttpProfilerInterceptor()
+    }
+}
