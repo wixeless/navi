@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/main_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/wallets_dest">
 
+    <fragment
+        android:id="@+id/wallets_dest"
+        android:name="com.marvel.stark.ui.WalletsFragment"
+        android:label="WalletsFragment"
+        tools:layout="@layout/fragment_wallets">
+        <action
+            android:id="@+id/action_next"
+            app:destination="@id/viewpager_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewpager_dest"
+        android:name="com.marvel.stark.ui.ViewPagerFragment"
+        android:label="WalletsFragment"
+        tools:layout="@layout/fragment_view_pager">
+        <argument
+            android:name="walledId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_next"
+            app:destination="@id/wallets_settings_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/wallets_settings_dest"
+        android:name="com.marvel.stark.ui.WalletSettingsFragment"
+        android:label="WalletsFragment"
+        tools:layout="@layout/fragment_wallet_settings">
+        <argument
+            android:name="walledId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
 </navigation>
