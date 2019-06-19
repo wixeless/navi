@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Navi</string>
+
+
+    <!--NEW ADDRESS DIALOG-->
+    <string name="wallet_address">Wallet address</string>
+    <string name="address_missing">Address not found</string>
+    <string name="paste">Paste</string>
+    <string name="clipboard_empty">Clipboard is empty</string>
+    <string name="select_pool">Select pool</string>
+    <string name="select_coin">Select coin</string>
+    <string name="wallet_name">Wallet name (optional)</string>
+    <string name="new_address">Add new wallet</string>
+    <string name="scan">Scan</string>
+
+
 </resources>
