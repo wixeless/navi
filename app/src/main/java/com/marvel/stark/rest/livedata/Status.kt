@@ -1,4 +1,4 @@
-package com.marvel.stark.rest
+package com.marvel.stark.rest.livedata
 
 enum class Status {
     SUCCESS,

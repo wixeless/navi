@@ -1,8 +1,7 @@
-package com.marvel.stark.rest
+package com.marvel.stark.rest.livedata
 
-import android.util.Log
+import com.marvel.stark.rest.ApiException
 import retrofit2.Response
-import java.io.IOException
 
 @Suppress("MemberVisibilityCanBePrivate")
 class ApiResponse<T> {
@@ -12,13 +11,16 @@ class ApiResponse<T> {
 
     val isSuccessful: Boolean
         get() = code in 200..300
-    val isFailure: Boolean
 
     constructor(error: Throwable) {
-        this.code = 500
+        if (error is ApiException) {
+            this.code = error.errorCode
+            this.message = error.errorMessage
+        } else {
+            this.code = 500
+            this.message = error.message
+        }
         this.body = null
-        this.message = error.message
-        this.isFailure = true
     }
 
     constructor(response: Response<T>) {
@@ -27,17 +29,8 @@ class ApiResponse<T> {
         if (response.isSuccessful) {
             this.body = response.body()
             this.message = null
-            this.isFailure = false
         } else {
-            var errorMessage: String? = null
-            response.errorBody()?.let {
-                try {
-                    errorMessage = response.errorBody()!!.string()
-                } catch (ignored: IOException) {
-                    Log.e("ApiResponse", "", ignored)
-                }
-            }
-
+            var errorMessage: String? = response.errorBody()?.string()
             errorMessage?.apply {
                 if (isNullOrEmpty() || trim { it <= ' ' }.isEmpty()) {
                     errorMessage = response.message()
@@ -46,7 +39,6 @@ class ApiResponse<T> {
 
             this.body = null
             this.message = errorMessage
-            this.isFailure = true
         }
     }
 }
