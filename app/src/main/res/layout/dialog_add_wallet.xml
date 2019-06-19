@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme">
+
+    <TextView
+        android:id="@+id/wallet_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bs_header_height"
+        android:background="@drawable/bottom_sheet_header"
+        android:gravity="center"
+        android:text="@string/new_address"
+        android:textAlignment="gravity"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/wallet_form"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/padding"
+        android:paddingEnd="@dimen/padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wallet_title">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/wallet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/wallet_name"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:scrollHorizontally="true" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/wallet_coin_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:hint="@string/select_coin">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/wallet_coin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:scrollHorizontally="true" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/wallet_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/wallet_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/wallet_address"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:scrollHorizontally="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/wallet_qr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan"
+                app:layout_constraintEnd_toStartOf="@+id/wallet_paste"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/wallet_paste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/paste"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/wallet_qr"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wallet_form">
+
+        <ProgressBar
+            android:id="@+id/wallet_loader"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorSecondary"
+            android:indeterminateTintMode="src_atop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="lollipop" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/wallet_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
