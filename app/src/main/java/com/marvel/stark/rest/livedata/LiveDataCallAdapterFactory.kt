@@ -1,4 +1,4 @@
-package com.marvel.stark.rest
+package com.marvel.stark.rest.livedata
 
 import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter
