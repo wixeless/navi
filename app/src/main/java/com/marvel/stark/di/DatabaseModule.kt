@@ -3,6 +3,9 @@ package com.marvel.stark.di
 import android.app.Application
 import androidx.room.Room
 import com.marvel.stark.room.AppDatabase
+import com.marvel.stark.room.DashboardDao
+import com.marvel.stark.room.WalletDao
+import com.marvel.stark.room.WorkerDao
 import com.marvel.stark.utils.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -21,5 +24,23 @@ class DatabaseModule {
             .databaseBuilder(application, AppDatabase::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWalletDao(database: AppDatabase): WalletDao {
+        return database.walletDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWorkerDao(database: AppDatabase): WorkerDao {
+        return database.workerDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDashboardDao(database: AppDatabase): DashboardDao {
+        return database.dashboardDao()
     }
 }
