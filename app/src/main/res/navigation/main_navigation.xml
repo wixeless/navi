@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/wallets_dest"
-        android:name="com.marvel.stark.ui.WalletsFragment"
+        android:name="com.marvel.stark.ui.wallets.WalletsFragment"
         android:label="WalletsFragment"
         tools:layout="@layout/fragment_wallets">
         <action
