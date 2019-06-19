@@ -12,6 +12,7 @@ import com.squareup.moshi.Json
 data class Wallet(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                   var address: String = "",
                   var coin: Coin = Coin.ETH,
+                  var name: String = "",
                   var unpaid: Long = 0L,
                   @ColumnInfo(name = "current_hashrate") var currentHashrate: Double = 0.0,
                   @ColumnInfo(name = "reported_hashrate") var reportedHashrate: Double = 0.0,

@@ -12,6 +12,7 @@
     <string name="wallet_name">Wallet name (optional)</string>
     <string name="new_address">Add new wallet</string>
     <string name="scan">Scan</string>
+    <string name="error_field_required">This field is required</string>
 
 
 </resources>

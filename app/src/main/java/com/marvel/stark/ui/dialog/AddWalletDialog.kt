@@ -1,7 +1,6 @@
 package com.marvel.stark.ui.dialog
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
+import com.marvel.stark.models.AddWalletEntity
 import com.marvel.stark.models.Status.*
+import com.marvel.stark.utils.hide
+import com.marvel.stark.utils.show
 import com.marvel.stark.utils.toastMessage
 import kotlinx.android.synthetic.main.dialog_add_wallet.*
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 /**Created by Jahongir on 6/18/2019.*/
@@ -36,24 +36,43 @@ class AddWalletDialog : BottomSheetDialogFragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         walletViewModel.addWalletResult.observe(this, Observer {
-            val msg = when (it.status) {
-                SUCCESS -> "SUCCESS CLOSE"
-                ERROR -> it.message
-                LOADING -> "SHOW LOADING"
+            when (it.status) {
+                SUCCESS -> dismiss()
+                ERROR -> toastMessage(context, it.message)
+                LOADING -> {
+                }
             }
-            showMsh(msg)
+            showLoadingAnimation(it.status == LOADING)
         })
-        wallet_fab.setOnClickListener { test() }
+        wallet_fab.setOnClickListener { onAddWallet() }
     }
 
-    private fun test() {
-        walletViewModel.onAddWallet("0x3ce72e8c2245c30d1cd340effc38ef64338c1ccb")
+    private fun onAddWallet() {
+        if (!isWalletAddressValid())
+            return
+        val walletAddress = wallet_address.text.toString()
+        val walletName = if (!wallet_name.text.isNullOrBlank()){
+            wallet_name.text.toString()
+        }else{
+            ""
+        }
+        val walletEntity = AddWalletEntity(walletAddress, walletName)
+        walletViewModel.onAddWallet(walletEntity)
     }
 
-    private fun showMsh(msg: String?) {
-        val sdf = SimpleDateFormat("hh:mm:ss:SSS", Locale.getDefault())
-        val currentDate = sdf.format(Date())
-        Log.d("AddWalletDialog", "showMsh $currentDate: $msg")
-        toastMessage(context, msg)
+    private fun isWalletAddressValid(): Boolean {
+        wallet_layout.error = null
+        if (wallet_address.text.isNullOrBlank()) {
+            wallet_layout.error = getString(R.string.error_field_required)
+            wallet_address.requestFocus()
+            return false
+        }
+        return true
+    }
+
+
+    private fun showLoadingAnimation(show: Boolean) {
+        if (show) wallet_loader.show()
+        else wallet_loader.hide()
     }
 }

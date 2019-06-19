@@ -8,3 +8,6 @@ import com.squareup.moshi.Json
 
 data class DashboardDto(@field:Json(name = "currentStatistics") val wallet: Wallet,
                         @field:Json(name = "workers") val workers: List<Worker>)
+
+
+data class AddWalletEntity(val address: String, val name: String)

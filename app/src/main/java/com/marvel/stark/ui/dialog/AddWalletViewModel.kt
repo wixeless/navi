@@ -2,6 +2,7 @@ package com.marvel.stark.ui.dialog
 
 import androidx.lifecycle.*
 import com.marvel.stark.models.DashboardDto
+import com.marvel.stark.models.AddWalletEntity
 import com.marvel.stark.rest.Resource
 import com.marvel.stark.utils.AbsentLiveData
 import javax.inject.Inject
@@ -10,7 +11,7 @@ import javax.inject.Inject
 
 class AddWalletViewModel @Inject constructor(private val addWalletRepository: AddWalletRepository) : ViewModel() {
 
-    private val walletAddress = MutableLiveData<String>()
+    private val walletAddress = MutableLiveData<AddWalletEntity>()
 
     val addWalletResult: LiveData<Resource<DashboardDto>>
 
@@ -21,5 +22,5 @@ class AddWalletViewModel @Inject constructor(private val addWalletRepository: Ad
         }
     }
 
-    fun onAddWallet(address: String) = walletAddress.postValue(address)
+    fun onAddWallet(walletEntity: AddWalletEntity) = walletAddress.postValue(walletEntity)
 }
