@@ -1,7 +1,6 @@
-package com.marvel.stark.rest
+package com.marvel.stark.rest.livedata
 
-import com.marvel.stark.models.Status
-import com.marvel.stark.models.Status.*
+import com.marvel.stark.rest.livedata.Status.*
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {
@@ -9,7 +8,7 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
             return Resource(SUCCESS, data, null)
         }
 
-        fun <T> error(msg: String?, data: T?): Resource<T> {
+        fun <T> error(msg: String, data: T?): Resource<T> {
             return Resource(ERROR, data, msg)
         }
 
