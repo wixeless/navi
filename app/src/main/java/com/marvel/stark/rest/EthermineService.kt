@@ -12,11 +12,13 @@ import retrofit2.http.Path
 
 interface EthermineService {
     @GET("/miner/{address}/dashboard")
-    fun fetchDashboard(@Path("address") address: String): LiveData<ApiResponse<DashboardDto>>
+    fun fetchDashboardLiveData(@Path("address") address: String): LiveData<ApiResponse<DashboardDto>>
+
+    @GET("/miner/{address}/dashboard")
+    fun fetchDashboardDeferred(@Path("address") address: String): Deferred<ApiResponse<DashboardDto>>
 
     @GET("/miner/{address}/dashboard")
     suspend fun fetchDashboardTest(@Path("address") address: String): Response<DashboardDto>
 
-    @GET("/miner/{address}/dashboard")
-    fun fetchDashboardTestAsync(@Path("address") address: String): Deferred<RestResponse<DashboardDto>>
+
 }

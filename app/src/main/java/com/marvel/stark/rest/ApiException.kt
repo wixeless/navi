@@ -21,7 +21,11 @@ internal open class ApiException : Exception {
 
     constructor(message: String?, errorCode: Int) : super(message) {
         this.errorCode = errorCode
-        this.errorMessage = message
+        if (errorCode == 429) {
+            this.errorMessage = "Cloudflare to restrict access"
+        }else{
+            this.errorMessage = message
+        }
     }
 
 }

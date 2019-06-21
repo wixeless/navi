@@ -3,6 +3,7 @@ package com.marvel.stark.rest
 /**Created by Jahongir on 6/17/2019.*/
 
 import android.util.Log
+import com.marvel.stark.rest.livedata.ApiResponse
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import retrofit2.*
@@ -27,7 +28,7 @@ class RestCallAdapterFactory private constructor() : CallAdapter.Factory() {
         val responseType = getParameterUpperBound(0, returnType)
 
         val rawDeferredType = getRawType(responseType)
-        return if (rawDeferredType == RestResponse::class.java) {
+        return if (rawDeferredType == ApiResponse::class.java) {
             if (responseType !is ParameterizedType) {
                 throw IllegalStateException("Response must be parameterized as RestResponse<Foo> or RestResponse<out Foo>")
             }
@@ -68,12 +69,12 @@ class RestCallAdapterFactory private constructor() : CallAdapter.Factory() {
         }
     }
 
-    private class ResponseCallAdapter<T>(private val responseType: Type) : CallAdapter<T, Deferred<RestResponse<T>>> {
+    private class ResponseCallAdapter<T>(private val responseType: Type) : CallAdapter<T, Deferred<ApiResponse<T>>> {
 
         override fun responseType() = responseType
 
-        override fun adapt(call: Call<T>): Deferred<RestResponse<T>> {
-            val deferred = CompletableDeferred<RestResponse<T>>()
+        override fun adapt(call: Call<T>): Deferred<ApiResponse<T>> {
+            val deferred = CompletableDeferred<ApiResponse<T>>()
 
             deferred.invokeOnCompletion {
                 if (deferred.isCancelled) {
@@ -83,11 +84,11 @@ class RestCallAdapterFactory private constructor() : CallAdapter.Factory() {
 
             call.enqueue(object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
-                    deferred.complete(RestResponse(response))
+                    deferred.complete(ApiResponse(response))
                 }
 
                 override fun onFailure(call: Call<T>, t: Throwable) {
-                    deferred.complete(RestResponse(t))
+                    deferred.complete(ApiResponse(t))
                 }
             })
 

@@ -36,9 +36,11 @@ class ApiResponse<T> {
                     errorMessage = response.message()
                 }
             }
-
             this.body = null
-            this.message = errorMessage
+            this.message = when (this.code) {
+                429 -> "Too Many Requests"
+                else -> errorMessage
+            }
         }
     }
 }
