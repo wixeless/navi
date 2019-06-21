@@ -31,7 +31,7 @@ class AddWalletRepository @Inject constructor(
 
             override fun shouldFetch(data: DashboardDto?) = true
 
-            override fun createCall() = ethermineService.fetchDashboard(walletEntity.address)
+            override fun createCall() = ethermineService.fetchDashboardLiveData(walletEntity.address)
 
             override fun loadFromDb(): LiveData<DashboardDto> {
                 return AbsentLiveData.create()
