@@ -14,14 +14,14 @@
             android:id="@+id/action_next"
             app:destination="@id/viewpager_dest"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/viewpager_dest"
-        android:name="com.marvel.stark.ui.ViewPagerFragment"
+        android:name="com.marvel.stark.ui.walletinfo.ViewPagerFragment"
         android:label="WalletsFragment"
         tools:layout="@layout/fragment_view_pager">
         <argument
@@ -33,7 +33,7 @@
             app:destination="@id/wallets_settings_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 

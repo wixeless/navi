@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_unpaid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/unconfirmed_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/cardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlue"
+                android:text="@string/unpaid" />
+
+            <TextView
+                android:id="@+id/unpaid"
+                style="@style/cardSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="10.75260568" />
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/unconfirmed_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/card_unpaid"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/cardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSecondary"
+                android:text="@string/unconfirmed" />
+
+            <TextView
+                android:id="@+id/unconfirmed"
+                style="@style/cardSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="3.75260568" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_workers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_unpaid">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/cardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTeal"
+                android:maxLines="1"
+                android:text="@string/active_workers" />
+
+            <TextView
+                android:id="@+id/workers"
+                style="@style/cardSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="3" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_hashrate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@+id/card_workers">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/hashrateTitle"
+                style="@style/cardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSecondary"
+                android:text="@string/hashrate"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/hashrateReportedLabel"
+                style="@style/cardSubTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/reported"
+                android:textAlignment="textEnd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hashrateTitle"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <TextView
+                android:id="@+id/hashrateReported"
+                style="@style/cardSubTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorTeal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hashrateReportedLabel"
+                app:layout_constraintTop_toBottomOf="@+id/hashrateTitle"
+                tools:text="3.75260568" />
+
+            <TextView
+                android:id="@+id/hashrateCurrentLabel"
+                style="@style/cardSubTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/current"
+                android:textAlignment="textEnd"
+                app:layout_constraintEnd_toStartOf="@+id/hashrateCurrent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hashrateReportedLabel"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <TextView
+                android:id="@+id/hashrateCurrent"
+                style="@style/cardSubTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorBlue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hashrateCurrentLabel"
+                app:layout_constraintTop_toBottomOf="@+id/hashrateReportedLabel"
+                tools:text="3.75260568" />
+
+            <TextView
+                android:id="@+id/hashrateAverageLabel"
+                style="@style/cardSubTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/average"
+                android:textAlignment="textEnd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hashrateCurrentLabel"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <TextView
+                android:id="@+id/hashrateAverage"
+                style="@style/cardSubTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hashrateAverageLabel"
+                app:layout_constraintTop_toBottomOf="@+id/hashrateCurrentLabel"
+                tools:text="3.75260568" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/hashrateChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin_half"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_hashrate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
