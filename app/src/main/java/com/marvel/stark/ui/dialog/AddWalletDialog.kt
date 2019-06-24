@@ -1,5 +1,6 @@
 package com.marvel.stark.ui.dialog
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,11 @@ class AddWalletDialog : BottomSheetDialogFragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViewModelObservers()
+        wallet_fab.setOnClickListener { onAddWallet() }
+    }
+
+    private fun setupViewModelObservers() {
         walletViewModel.addWalletResult.observe(this, Observer {
             when (it.status) {
                 SUCCESS -> dismiss()
@@ -44,16 +50,15 @@ class AddWalletDialog : BottomSheetDialogFragment(), Injectable {
             }
             showLoadingAnimation(it.status == LOADING)
         })
-        wallet_fab.setOnClickListener { onAddWallet() }
     }
 
     private fun onAddWallet() {
         if (!isWalletAddressValid())
             return
         val walletAddress = wallet_address.text.toString()
-        val walletName = if (!wallet_name.text.isNullOrBlank()){
+        val walletName = if (!wallet_name.text.isNullOrBlank()) {
             wallet_name.text.toString()
-        }else{
+        } else {
             ""
         }
         val walletEntity = AddWalletEntity(walletAddress, walletName)
@@ -70,9 +75,9 @@ class AddWalletDialog : BottomSheetDialogFragment(), Injectable {
         return true
     }
 
-
     private fun showLoadingAnimation(show: Boolean) {
         if (show) wallet_loader.show()
         else wallet_loader.hide()
     }
+
 }

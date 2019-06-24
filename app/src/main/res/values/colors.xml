@@ -1,17 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#202124</color>
-    <color name="colorPrimaryDark">#202124</color>
-    <color name="colorSecondary">#185ABC</color>
-    <color name="colorWhite">#FFF</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#838c96</color>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <color name="colorBackground">#f2f2f2</color>
-    <color name="colorSurface">#ffffff</color>
-    <color name="colorBorder">#838c96</color>
-    <color name="colorDivider">#dee3ea</color>
+    <!--Base colors-->
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryVariant">#ffffff</color>
+    <color name="colorSecondary">#1a73e8</color>
+    <color name="colorBackground">#ffffff</color>
+    <color name="colorSurface">#f1f3f4</color>
+    <color name="textColorPrimary">#5f6368</color>
+    <color name="textColorSecondary">#70757a</color>
+
+    <!--Extra colors-->
+    <color name="colorDivider">#e0e0e0</color>
+    <color name="colorBorder">#e0e0e0</color>
     <color name="colorIcon">#7d858f</color>
+    <color name="colorPrimaryOverlay">#331a73e8</color>
 
 
+    <!--UNTESTED-->
+    <color name="scrimBackground">#99000000</color>
+    <color name="colorControlActivated">#1a73e8</color>
+    <color name="colorControlNormal">#1a73e8</color>
+    <color name="colorControlHighlight">#ffffff</color>
+
+    <color name="colorOnPrimary">#ffffff</color>
+    <color name="colorOnSecondary">#ffffff</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorOnError">#FFFFFF</color>
+
+    <color name="colorCardHeader">#e0f7fa</color>
+    <color name="colorBlue">#61A9E1</color>
+    <color name="colorTeal">#009688</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteAlpha">#99FFFFFF</color>
+    <color name="colorError">#e45356</color>
+
+    <color name="switchThumbColor">#EDEDED</color>
+    <color name="switchTrackColor">#c7c7c7</color>
+
+    <!--WIDGET RELATED COLORS-->
+    <color name="widgetDayHeader">#61A9E1</color>
+    <color name="widgetDayBackground">#ffffff</color>
+    <color name="widgetDayText">#000000</color>
+
+    <color name="widgetNightHeader">#456a93</color>
+    <color name="widgetNightBackground">#1c2733</color>
+    <color name="widgetNightText">#ffffff</color>
+
+    <!--SPLASH SCREEN-->
+    <color name="splash">#000316</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">@color/textColorSecondary</color>
 </resources>

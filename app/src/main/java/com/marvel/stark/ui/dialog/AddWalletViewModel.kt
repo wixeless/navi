@@ -11,16 +11,16 @@ import javax.inject.Inject
 
 class AddWalletViewModel @Inject constructor(private val addWalletRepository: AddWalletRepository) : ViewModel() {
 
-    private val walletAddress = MutableLiveData<AddWalletEntity>()
+    private val walletEntity = MutableLiveData<AddWalletEntity>()
 
     val addWalletResult: LiveData<Resource<DashboardDto>>
 
     init {
-        addWalletResult = walletAddress.switchMap {
-            walletAddress.value?.let { addWalletRepository.onAddWallet(it, viewModelScope) }
+        addWalletResult = walletEntity.switchMap {
+            walletEntity.value?.let { addWalletRepository.onAddWallet(it, viewModelScope) }
                     ?: AbsentLiveData.create()
         }
     }
 
-    fun onAddWallet(walletEntity: AddWalletEntity) = walletAddress.postValue(walletEntity)
+    fun onAddWallet(newWalletEntity: AddWalletEntity) = walletEntity.postValue(newWalletEntity)
 }

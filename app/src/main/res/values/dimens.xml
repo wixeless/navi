@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="margin_half">8dp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+
+    <dimen name="padding">16dp</dimen>
+    <dimen name="padding_half">8dp</dimen>
+
     <dimen name="corner_radius">8dp</dimen>
     <dimen name="bs_header_height">40dp</dimen>
-    <dimen name="margin">16dp</dimen>
-    <dimen name="padding">16dp</dimen>
+
+    <dimen name="text_name">14sp</dimen>
+    <dimen name="text_label">16sp</dimen>
+
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">18sp</dimen>
+
+    <dimen name="card_height">65dp</dimen>
 </resources>

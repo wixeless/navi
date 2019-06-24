@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#2d2e30</color>
+    <color name="colorPrimaryVariant">#2d2e30</color>
+    <color name="colorSecondary">#8ab4f8</color>
+    <color name="colorBackground">#202124</color>
+    <color name="colorSurface">#2d2e30</color>
+    <color name="colorDivider">#5f6368</color>
+    <color name="colorBorder">#7d8e98</color>
+    <color name="textColorPrimary">#e8eaed</color>
+    <color name="textColorSecondary">#dadce0</color>
+
+    <color name="colorIcon">#9aa0a6</color>
+    <color name="scrimBackground">#99000000</color>
+    <color name="colorControlActivated">#ff7f0f</color>
+    <color name="colorControlNormal">#ff7f0f</color>
+    <color name="colorControlHighlight">#ffffff</color>
+
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorOnBackground">#ffffff</color>
+    <color name="colorOnSurface">#ffffff</color>
+    <color name="colorOnError">#FFFFFF</color>
+
+    <color name="colorCardHeader">#456a93</color>
+    <color name="colorBlue">#456a93</color>
+
+    <color name="switchThumbColor">#7a8e99</color>
+    <color name="switchTrackColor">#495966</color>
+
+</resources>

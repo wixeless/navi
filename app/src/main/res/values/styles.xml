@@ -1,33 +1,42 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorAccent">@color/colorSecondary</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <!--Override default-->
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorPrimary</item>
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item-->>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryVariant</item>
         <!--Components-->
         <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetTheme</item>
         <item name="textInputStyle">@style/AppTheme.TextInput</item>
         <item name="materialButtonStyle">@style/AppTheme.MaterialButton</item>
     </style>
 
-    <style name="AppTheme.BottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorAccent">@color/colorSecondary</item>
+    <style name="AppTheme.BottomSheetTheme" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="materialButtonStyle">@style/AppTheme.MaterialButton</item>
         <item name="bottomSheetStyle">@style/AppTheme.BottomSheetStyle</item>
     </style>
 
-    <style name="AppTheme.BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bottom_sheet_bg</item>
+    <style name="AppTheme.BottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
     <!--EDIT TEXT-->
     <style name="AppTheme.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:textColorHint">@color/secondaryTextColor</item>
+        <item name="android:textColorHint">@color/textColorSecondary</item>
         <item name="boxStrokeColor">@color/colorSecondary</item>
         <item name="hintTextColor">@color/colorSecondary</item>
     </style>
@@ -36,6 +45,24 @@
         <item name="strokeColor">@color/colorSecondary</item>
         <item name="android:textColor">@color/colorSecondary</item>
         <item name="rippleColor">@color/colorSecondary</item>
+    </style>
+
+
+
+
+    <style name="cardTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorOnSecondary</item>
+        <item name="android:padding">@dimen/padding_half</item>
+    </style>
+
+    <style name="cardSubTitle">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">4dp</item>
     </style>
 
 

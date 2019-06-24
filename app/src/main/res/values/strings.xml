@@ -15,4 +15,35 @@
     <string name="error_field_required">This field is required</string>
 
 
+    <string name="wallet_colon">wallet:</string>
+    <string name="workers_colon">Workers:</string>
+    <string name="unpaid_colon">Unpaid:</string>
+    <string name="hashrate">Hashrate</string>
+
+    <!--Wallet Info Fragment-->
+    <string name="title_home">Home</string>
+    <string name="title_workers">Workers</string>
+    <string name="title_earnings">Earnings</string>
+
+    <!--Home Fragment-->
+    <string name="immature">Immature</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="value">Value</string>
+    <string name="balance">Balance</string>
+    <string name="unpaid">Unpaid</string>
+    <string name="paid">Paid</string>
+    <string name="earned">Earned</string>
+    <string name="payouts">Payouts</string>
+    <string name="unconfirmed">Unconfirmed</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="amount">Amount</string>
+    <string name="last24h">Last 24 Hours Payouts:</string>
+    <string name="reported">Reported:</string>
+    <string name="current">Current:</string>
+    <string name="average">Average:</string>
+    <string name="active_workers">Active Workers</string>
+    <string name="duration">Duration</string>
+    <string name="last_seen">Last seen:</string>
+
 </resources>
