@@ -1,9 +1,7 @@
 package com.marvel.stark.di
 
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
-import com.marvel.stark.rest.EthermineService
-import com.marvel.stark.rest.ResponseConverterFactory
-import com.marvel.stark.rest.RestCallAdapterFactory
+import com.marvel.stark.rest.*
 import com.marvel.stark.rest.livedata.LiveDataCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -49,6 +47,7 @@ class NetworkModule {
     @Provides
     internal fun provideMoshi(): Moshi {
         return Moshi.Builder()
+                .add(HashrateAdapter())
                 .build()
     }
 
