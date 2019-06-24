@@ -1,6 +1,5 @@
 package com.marvel.stark.ui.wallets
 
-import android.util.Log
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
@@ -9,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.rest.EthermineService
 import com.marvel.stark.rest.Resource
+import com.marvel.stark.rest.awaitResult
 import com.marvel.stark.rest.livedata.ApiResponse
 import com.marvel.stark.room.DashboardDao
 import com.marvel.stark.room.Wallet
@@ -51,7 +51,8 @@ class WalletsRepository @Inject constructor(private val ethermineService: Etherm
             wallets.removeSource(dbSource)
         }
         for (wallet in walletsList) {
-            val apiResponse = ethermineService.fetchDashboardDeferred(wallet.address).await()
+            //val apiResponse = ethermineService.fetchDashboardDeferred(wallet.address).await()
+            val apiResponse = ethermineService.fetchDashboard(wallet.address).awaitResult()
             if (apiResponse.isSuccessful) {
                 val response = processResponse(apiResponse)
                 response?.let {
