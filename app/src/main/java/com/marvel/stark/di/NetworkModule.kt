@@ -3,6 +3,9 @@ package com.marvel.stark.di
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import com.marvel.stark.rest.*
 import com.marvel.stark.rest.livedata.LiveDataCallAdapterFactory
+import com.marvel.stark.rest.moshi.HashrateAdapter
+import com.marvel.stark.rest.moshi.ResponseConverterFactory
+import com.marvel.stark.rest.service.EthermineService
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
