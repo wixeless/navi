@@ -4,9 +4,9 @@ import com.marvel.stark.ui.walletinfo.ViewPagerFragment
 import com.marvel.stark.ui.WalletSettingsFragment
 import com.marvel.stark.ui.dialog.AddWalletDialog
 import com.marvel.stark.ui.dialog.AddWalletRepository
-import com.marvel.stark.ui.walletinfo.EarningFragment
-import com.marvel.stark.ui.walletinfo.HomeFragment
-import com.marvel.stark.ui.walletinfo.WorkerFragment
+import com.marvel.stark.ui.walletinfo.earning.EarningFragment
+import com.marvel.stark.ui.walletinfo.home.HomeFragment
+import com.marvel.stark.ui.walletinfo.worker.WorkerFragment
 import com.marvel.stark.ui.wallets.WalletsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -22,6 +22,9 @@ abstract class FragmentModule {
     abstract fun contributeWalletsFragment(): WalletsFragment
 
     @ContributesAndroidInjector
+    abstract fun contributeAddWalletDialog(): AddWalletDialog
+
+    @ContributesAndroidInjector
     abstract fun contributeViewPagerFragment(): ViewPagerFragment
 
     @ContributesAndroidInjector
@@ -35,11 +38,4 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeWalletSettingsFragment(): WalletSettingsFragment
-
-    @ContributesAndroidInjector
-    abstract fun contributeAddWalletDialog(): AddWalletDialog
-
-    @ContributesAndroidInjector
-    abstract fun contributeAddWalletRepository(): AddWalletRepository
-
 }

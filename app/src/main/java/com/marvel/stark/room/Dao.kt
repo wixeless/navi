@@ -10,18 +10,31 @@ import com.marvel.stark.models.DashboardDto
 
 @Dao
 interface WalletDao : BaseDao<Wallet> {
+
     @Query("SELECT * FROM wallet")
     fun getWallets(): LiveData<List<Wallet>>
+
+    @Query("SELECT * FROM wallet WHERE id=:walledId")
+    fun getWalletLiveData(walledId: Long): LiveData<Wallet>
+
+    @WorkerThread
+    @Query("SELECT * FROM wallet WHERE id=:walledId")
+    fun getWallet(walledId: Long): Wallet
 
     @Query("DELETE FROM wallet WHERE id=:walledId")
     fun deleteById(walledId: Long)
 
     @Query("SELECT * FROM wallet")
     fun getWalletsList(): List<Wallet>
+
+
 }
 
 @Dao
 interface WorkerDao : BaseDao<Worker> {
+
+    @Query("SELECT * FROM worker WHERE wallet_id=:walledId")
+    fun getWorkers(walledId: Long): LiveData<List<Worker>>
 }
 
 @Dao
@@ -37,7 +50,8 @@ abstract class DashboardDao {
 
     @WorkerThread
     @Transaction
-    open fun update(dashboard: DashboardDto) {
+    open fun update(wallet: Wallet, dashboard: DashboardDto) {
+        dashboard.setWallet(wallet)
         dashboard.wallet.lastSeen = System.currentTimeMillis()
         dashboard.workers.forEach { it.walletId = dashboard.wallet.id }
         deleteWorkers(dashboard.wallet.id)

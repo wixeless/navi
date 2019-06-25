@@ -12,11 +12,18 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.security.MessageDigest
 import java.security.SecureRandom
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 import kotlin.collections.ArrayList
+
+
+fun getTimeOfDay(): String {
+    val sdf = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault())
+    return sdf.format(Date(System.currentTimeMillis()))
+}
 
 fun JSONObject.isNotNull(name: String): Boolean {
     return !isNull(name)
@@ -62,12 +69,8 @@ fun JSONObject.isNotEmpty(): Boolean {
     return this.length() > 0
 }
 
-fun View.show() {
-    this.visibility = VISIBLE
-}
-
-fun View.hide() {
-    this.visibility = GONE
+fun View.visible(isShow: Boolean) {
+    this.visibility = if (isShow) VISIBLE else GONE
 }
 
 private const val cipherTransformation = "AES/CBC/PKCS5Padding"
