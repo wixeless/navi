@@ -1,4 +1,4 @@
-package com.marvel.stark.rest
+package com.marvel.stark.repository
 
 import com.marvel.stark.models.Status
 import com.marvel.stark.models.Status.*

@@ -1,4 +1,4 @@
-package com.marvel.stark.rest
+package com.marvel.stark.rest.service
 
 import androidx.lifecycle.LiveData
 import com.marvel.stark.models.DashboardDto
@@ -13,7 +13,7 @@ import retrofit2.http.Path
 
 interface EthermineService {
     @GET("/miner/{address}/dashboard")
-    fun fetchDashboardLiveData(@Path("address") address: String): LiveData<ApiResponse<DashboardDto>>
+    fun fetchDashboardLiveData(@Path("address") address: String?): LiveData<ApiResponse<DashboardDto>>
 
     @GET("/miner/{address}/dashboard")
     fun fetchDashboardDeferred(@Path("address") address: String): Deferred<ApiResponse<DashboardDto>>

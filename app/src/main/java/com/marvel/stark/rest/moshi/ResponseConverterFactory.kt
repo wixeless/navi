@@ -1,5 +1,7 @@
-package com.marvel.stark.rest
+package com.marvel.stark.rest.moshi
 
+import com.marvel.stark.rest.ApiException
+import com.marvel.stark.rest.RestData
 import com.squareup.moshi.Moshi
 import okhttp3.RequestBody
 import okhttp3.ResponseBody

@@ -1,4 +1,4 @@
-package com.marvel.stark.rest
+package com.marvel.stark.rest.moshi
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson

@@ -1,4 +1,4 @@
-package com.marvel.stark.rest
+package com.marvel.stark.repository
 
 import android.util.Log
 import androidx.annotation.MainThread
