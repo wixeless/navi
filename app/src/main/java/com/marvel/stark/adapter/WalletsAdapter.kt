@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_wallet.view.*
 
 class WalletsAdapter : RecyclerView.Adapter<WalletsAdapter.ViewHolder>()/*, ItemTouchHelperAdapter */ {
 
-    private var wallets = ArrayList<Wallet>()
+    private var wallets = emptyList<Wallet>()
 
     private var swapListener: ((newOrders: ArrayList<Wallet>) -> Unit)? = null
     private var clickListener: ((Wallet) -> Unit)? = null
@@ -90,7 +90,7 @@ class WalletsAdapter : RecyclerView.Adapter<WalletsAdapter.ViewHolder>()/*, Item
     }
 
     fun update(newWallets: List<Wallet>) {
-        this.wallets = ArrayList(newWallets)
+        this.wallets = newWallets
         notifyDataSetChanged()
     }
 }

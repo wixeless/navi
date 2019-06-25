@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 /**Created by Jahongir on 6/25/2019.*/
 
 class WorkersAdapter : RecyclerView.Adapter<WorkersAdapter.ViewHolder>() {
-    private var workersList = emptyArray<Worker>()
+    private var workersList = emptyList<Worker>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.item_worker, parent, false))
@@ -42,7 +42,7 @@ class WorkersAdapter : RecyclerView.Adapter<WorkersAdapter.ViewHolder>() {
     }
 
     fun update(workers: List<Worker>) {
-        this.workersList = workers.toTypedArray()
+        this.workersList = workers
         notifyDataSetChanged()
     }
 }
