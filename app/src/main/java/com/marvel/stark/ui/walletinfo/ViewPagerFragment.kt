@@ -11,7 +11,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
-import com.marvel.stark.ui.walletinfo.earning.EarningFragment
+import com.marvel.stark.ui.walletinfo.payout.PayoutFragment
 import com.marvel.stark.ui.walletinfo.home.HomeFragment
 import com.marvel.stark.ui.walletinfo.worker.WorkerFragment
 import kotlinx.android.synthetic.main.fragment_view_pager.*
@@ -57,7 +57,7 @@ class ViewPagerFragment : Fragment(), Injectable {
 
     private fun getViewPagerAdapter(): FragmentStateAdapter {
         val fragments = arrayOf<Fragment>(HomeFragment.newInstance(walletId),
-                WorkerFragment.newInstance(walletId), EarningFragment.newInstance(walletId))
+                WorkerFragment.newInstance(walletId), PayoutFragment.newInstance(walletId))
         return object : FragmentStateAdapter(this) {
             override fun createFragment(position: Int) = fragments[position]
 

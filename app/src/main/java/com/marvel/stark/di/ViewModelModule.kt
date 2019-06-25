@@ -6,6 +6,7 @@ import com.marvel.stark.di.factory.ViewModelFactory
 import com.marvel.stark.di.factory.ViewModelKey
 import com.marvel.stark.ui.dialog.AddWalletViewModel
 import com.marvel.stark.ui.walletinfo.home.HomeViewModel
+import com.marvel.stark.ui.walletinfo.payout.PayoutViewModel
 import com.marvel.stark.ui.walletinfo.worker.WorkerViewModel
 import com.marvel.stark.ui.wallets.WalletsViewModel
 import dagger.Binds
@@ -41,5 +42,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(WorkerViewModel::class)
     abstract fun bindWorkerViewModel(workerViewModel: WorkerViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PayoutViewModel::class)
+    abstract fun bindPayoutViewModel(workerViewModel: PayoutViewModel): ViewModel
 
 }

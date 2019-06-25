@@ -31,13 +31,6 @@ interface WalletDao : BaseDao<Wallet> {
 }
 
 @Dao
-interface WorkerDao : BaseDao<Worker> {
-
-    @Query("SELECT * FROM worker WHERE wallet_id=:walledId")
-    fun getWorkers(walledId: Long): LiveData<List<Worker>>
-}
-
-@Dao
 abstract class DashboardDao {
 
     @WorkerThread
@@ -71,3 +64,30 @@ abstract class DashboardDao {
     @Update
     abstract fun updateWallet(wallet: Wallet)
 }
+
+@Dao
+interface WorkerDao : BaseDao<Worker> {
+    @Query("SELECT * FROM worker WHERE wallet_id=:walledId")
+    fun getWorkers(walledId: Long): LiveData<List<Worker>>
+}
+
+@Dao
+abstract class PayoutDao {
+    @Query("SELECT * FROM payout WHERE wallet_id=:walledId")
+    abstract fun getPayouts(walledId: Long): LiveData<List<Payout>>
+
+    @WorkerThread
+    @Transaction
+    open fun insert(walledId: Long, list: List<Payout>) {
+        deletePayouts(walledId)
+        insertPayouts(list)
+    }
+
+    @Query("DELETE FROM payout WHERE wallet_id=:walledId")
+    abstract fun deletePayouts(walledId: Long)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertPayouts(list: List<Payout>)
+}
+
+

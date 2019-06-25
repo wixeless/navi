@@ -36,3 +36,18 @@ data class Worker(@PrimaryKey(autoGenerate = true) val id: Long,
                   @ColumnInfo(name = "reported_hashrate") val reportedHashrate: Long,
                   @ColumnInfo(name = "last_seen") val lastSeen: Long)
 
+@Entity(
+        tableName = "payout",
+        indices = [Index(value = ["wallet_id"])],
+        foreignKeys = [ForeignKey(
+                entity = Wallet::class,
+                parentColumns = arrayOf("id"),
+                childColumns = arrayOf("wallet_id"),
+                onDelete = ForeignKey.CASCADE,
+                onUpdate = ForeignKey.CASCADE)]
+)
+data class Payout(@PrimaryKey(autoGenerate = true) val id: Long,
+                  @ColumnInfo(name = "wallet_id") var walletId: Long,
+                  val amount: Long,
+                  val paidOn: Long)
+

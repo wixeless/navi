@@ -1,5 +1,6 @@
 package com.marvel.stark.repository
 
+import android.util.Log
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
@@ -61,30 +62,27 @@ abstract class WalletBoundResource<ResultType, RequestType, ServiceParams>
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
-            when (response.isSuccessful) {
-                true -> {
-                    //Dispatcher IO
-                    coroutineScope.launch(Dispatchers.IO) {
-                        val processedResponse = processResponse(response)
-                        processedResponse?.let { body ->
-                            saveCallResult(body, wallet)
-                        }
-                        //Dispatcher Main
-                        coroutineScope.launch {
-                            // we specially request a new live data,
-                            // otherwise we will get immediately last cached value,
-                            // which may not be updated with latest results received from network.
-                            result.addSource(loadFromDb()) { newData ->
-                                setValue(Resource.success(newData))
-                            }
+            if (response.isSuccessful) {
+                //Dispatcher IO
+                coroutineScope.launch(Dispatchers.IO) {
+                    val processedResponse = processResponse(response)
+                    processedResponse?.let { body ->
+                        saveCallResult(body, wallet)
+                    }
+                    //Dispatcher Main
+                    coroutineScope.launch {
+                        // we specially request a new live data,
+                        // otherwise we will get immediately last cached value,
+                        // which may not be updated with latest results received from network.
+                        result.addSource(loadFromDb()) { newData ->
+                            setValue(Resource.success(newData))
                         }
                     }
                 }
-                false -> {
-                    onFetchFailed()
-                    result.addSource(dbSource) { newData ->
-                        setValue(Resource.error(response.message, newData))
-                    }
+            } else {
+                onFetchFailed()
+                result.addSource(dbSource) { newData ->
+                    setValue(Resource.error(response.message, newData))
                 }
             }
         }
