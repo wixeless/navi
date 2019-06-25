@@ -29,6 +29,49 @@ fun toastMessage(context: Context?, message: String?) = CoroutineScope(uiDispatc
     toast.show()
 }
 
+
+object Formatter{
+
+    fun hashrate(hash: Long): String {
+        val h = "H/s"
+        val kh = "kH/s"
+        val mh = "MH/s"
+        val gh = "GH/s"
+        val th = "TH/s"
+        return when (hash) {
+            in 0..1000 -> {
+                "$hash $h"
+            }
+            in 1000..1000000 -> {
+                val v = hash.div(1000.0)
+                val s = "%.1f".format(v)
+                "$s $kh"
+            }
+            in 1000000..1000000000 -> {
+                val v = hash.div(1000000.0)
+                val s = "%.1f".format(v)
+                "$s $mh"
+            }
+            in 1000000000..1000000000000 -> {
+                val v = hash.div(1000000000.0)
+                val s = "%.1f".format(v)
+                "$s $gh"
+            }
+            else -> {
+                val v = hash.div(1000000000000.0)
+                val s = "%.1f".format(v)
+                "$s $th"
+            }
+        }
+    }
+
+    fun unpaid(unpaid: Long): String {
+        val one = 1000000000000000000.0
+        val holder = unpaid.div(one)
+        return "%.5f".format(holder)
+    }
+}
+
 fun formatHashrate(hash2: Double): String {
     val hash = hash2.toLong()
     val h = "H/s"
@@ -63,41 +106,5 @@ fun formatHashrate(hash2: Double): String {
     }
 }
 
-fun formatHashrate(hash: Long): String {
-    val h = "H/s"
-    val kh = "kH/s"
-    val mh = "MH/s"
-    val gh = "GH/s"
-    val th = "TH/s"
-    return when (hash) {
-        in 0..1000 -> {
-            "$hash $h"
-        }
-        in 1000..1000000 -> {
-            val v = hash.div(1000.0)
-            val s = "%.1f".format(v)
-            "$s $kh"
-        }
-        in 1000000..1000000000 -> {
-            val v = hash.div(1000000.0)
-            val s = "%.1f".format(v)
-            "$s $mh"
-        }
-        in 1000000000..1000000000000 -> {
-            val v = hash.div(1000000000.0)
-            val s = "%.1f".format(v)
-            "$s $gh"
-        }
-        else -> {
-            val v = hash.div(1000000000000.0)
-            val s = "%.1f".format(v)
-            "$s $th"
-        }
-    }
-}
 
-fun formatCoinValue(unpaid: Long): String {
-    val one = 1000000000000000000.0
-    val holder = unpaid.div(one)
-    return "%.5f".format(holder)
-}
+

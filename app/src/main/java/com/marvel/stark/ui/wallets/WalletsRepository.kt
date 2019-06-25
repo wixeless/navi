@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.marvel.stark.models.DashboardDto
-import com.marvel.stark.rest.EthermineService
-import com.marvel.stark.rest.Resource
+import com.marvel.stark.rest.service.EthermineService
+import com.marvel.stark.repository.Resource
 import com.marvel.stark.rest.awaitResult
 import com.marvel.stark.rest.livedata.ApiResponse
 import com.marvel.stark.room.DashboardDao
@@ -81,8 +81,7 @@ class WalletsRepository @Inject constructor(private val ethermineService: Etherm
 
     @WorkerThread
     private fun saveCallResult(item: DashboardDto, wallet: Wallet) {
-        item.setWallet(wallet)
-        dashboardDao.update(item)
+        dashboardDao.update(wallet, item)
     }
 
     @MainThread

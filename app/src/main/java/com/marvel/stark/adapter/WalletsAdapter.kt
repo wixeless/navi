@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marvel.stark.R
 import com.marvel.stark.room.Wallet
-import com.marvel.stark.utils.formatCoinValue
-import com.marvel.stark.utils.formatHashrate
+import com.marvel.stark.utils.Formatter
 import kotlinx.android.synthetic.main.item_wallet.view.*
 
-class WalletsAdapter() : RecyclerView.Adapter<WalletsAdapter.ViewHolder>()/*, ItemTouchHelperAdapter */ {
+class WalletsAdapter : RecyclerView.Adapter<WalletsAdapter.ViewHolder>()/*, ItemTouchHelperAdapter */ {
 
     private var wallets = ArrayList<Wallet>()
 
@@ -42,9 +41,9 @@ class WalletsAdapter() : RecyclerView.Adapter<WalletsAdapter.ViewHolder>()/*, It
             wallet_coin.text = wallet.coin.name
             wallet_workers.text = wallet.activeWorkers.toString()
             //wallet_unpaid.text = formatCurrency(walletData.unpaid)
-            wallet_hash.text = formatHashrate(wallet.reportedHashrate)
+            wallet_hash.text = Formatter.hashrate(wallet.reportedHashrate)
             wallet_wallet.text = wallet.address
-            wallet_unpaid.text = formatCoinValue(wallet.unpaid)
+            wallet_unpaid.text = Formatter.unpaid(wallet.unpaid)
 
             wallet_card.setOnClickListener {
                 clickListener?.invoke(wallet)

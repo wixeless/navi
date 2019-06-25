@@ -3,7 +3,7 @@ package com.marvel.stark.ui.wallets
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.marvel.stark.rest.Resource
+import com.marvel.stark.repository.Resource
 import com.marvel.stark.room.Wallet
 import javax.inject.Inject
 
