@@ -3,7 +3,7 @@ package com.marvel.stark.ui.dialog
 import androidx.lifecycle.*
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.models.AddWalletEntity
-import com.marvel.stark.rest.Resource
+import com.marvel.stark.repository.Resource
 import com.marvel.stark.utils.AbsentLiveData
 import javax.inject.Inject
 

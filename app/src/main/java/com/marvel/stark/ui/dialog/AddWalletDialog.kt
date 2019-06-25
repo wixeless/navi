@@ -1,6 +1,5 @@
 package com.marvel.stark.ui.dialog
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,8 @@ import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
 import com.marvel.stark.models.AddWalletEntity
 import com.marvel.stark.models.Status.*
-import com.marvel.stark.utils.hide
-import com.marvel.stark.utils.show
 import com.marvel.stark.utils.toastMessage
+import com.marvel.stark.utils.visible
 import kotlinx.android.synthetic.main.dialog_add_wallet.*
 import javax.inject.Inject
 
@@ -76,8 +74,7 @@ class AddWalletDialog : BottomSheetDialogFragment(), Injectable {
     }
 
     private fun showLoadingAnimation(show: Boolean) {
-        if (show) wallet_loader.show()
-        else wallet_loader.hide()
+        wallet_loader.visible(show)
     }
 
 }

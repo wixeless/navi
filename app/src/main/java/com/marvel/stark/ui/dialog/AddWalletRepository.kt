@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import com.marvel.stark.models.Coin
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.models.AddWalletEntity
-import com.marvel.stark.rest.EthermineService
-import com.marvel.stark.rest.NetworkBoundResource
-import com.marvel.stark.rest.Resource
+import com.marvel.stark.rest.service.EthermineService
+import com.marvel.stark.repository.NetworkBoundResource
+import com.marvel.stark.repository.Resource
 import com.marvel.stark.room.DashboardDao
 import com.marvel.stark.utils.AbsentLiveData
 import kotlinx.coroutines.CoroutineScope
