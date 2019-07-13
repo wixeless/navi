@@ -16,10 +16,14 @@ interface EthermineService {
     fun fetchDashboardLiveData(@Path("address") address: String?): LiveData<ApiResponse<DashboardDto>>
 
     @GET("/miner/{address}/dashboard")
-    fun fetchDashboardDeferred(@Path("address") address: String): Deferred<ApiResponse<DashboardDto>>
+    fun fetchDashboard(@Path("address") address: String): Call<DashboardDto>
 
     @GET("/miner/{address}/dashboard")
-    fun fetchDashboard(@Path("address") address: String): Call<DashboardDto>
+    suspend fun fetchDashboardSuspend(@Path("address") address: String?): DashboardDto
+
+    @GET("/miner/{address}/dashboard")
+    fun fetchDashboardDeferred(@Path("address") address: String): Deferred<ApiResponse<DashboardDto>>
+
 
     @GET("/miner/{address}/payouts")
     fun fetchPayoutsLiveData(@Path("address") address: String?): LiveData<ApiResponse<List<Payout>>>
