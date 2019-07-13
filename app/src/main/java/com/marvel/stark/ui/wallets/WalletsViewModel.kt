@@ -1,8 +1,6 @@
 package com.marvel.stark.ui.wallets
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.marvel.stark.repository.Resource
 import com.marvel.stark.room.Wallet
 import javax.inject.Inject
@@ -11,10 +9,24 @@ import javax.inject.Inject
 
 class WalletsViewModel @Inject constructor(walletsRepository: WalletsRepository) : ViewModel() {
 
+    private val lastUpdate = MutableLiveData<Long>()
+
+    val errorMessages = walletsRepository.errorMessages
+
     init {
+        lastUpdate.value = System.currentTimeMillis()
         walletsRepository.initWithScope(viewModelScope)
     }
 
-    val wallets: LiveData<Resource<List<Wallet>>> = walletsRepository.getWallets()
-    val errorMessages = walletsRepository.errorMessages
+
+    val wallets: LiveData<Resource<List<Wallet>>> = Transformations
+            .switchMap(lastUpdate) {
+                walletsRepository.getWallets()
+            }
+
+    fun refresh() {
+        lastUpdate.value?.let {
+            lastUpdate.value = System.currentTimeMillis()
+        }
+    }
 }

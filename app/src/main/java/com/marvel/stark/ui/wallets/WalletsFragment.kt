@@ -41,31 +41,28 @@ class WalletsFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         setupWalletsRv()
         walletsViewModel.wallets.observe(this, Observer { resource ->
-            when (resource.status) {
-                SUCCESS -> {
-                    resource.data?.let {
-                        walletsAdapter.update(it)
-                    }
-                }
-                ERROR -> toastMessage(context, resource.message)
-                LOADING -> {
-                    resource.data?.let {
-                        walletsAdapter.update(it)
-                    }
-                }
+
+            wallets_refresh.isRefreshing = resource.status == LOADING
+
+            if (resource.status == ERROR)
+                toastMessage(context, resource.message)
+
+            resource.data?.let {
+                walletsAdapter.update(it)
             }
-            Log.d("WalletsFragment", "onViewCreated: ${resource.status}")
-            resource.data?.forEach {
-                Log.d("WalletsFragment", "onViewCreated: ${it.name} ${it.lastSeen}")
-            }
-            Log.d("WalletsFragment", "onViewCreated: #############################")
         })
+
         walletsViewModel.errorMessages.observe(this, Observer { message ->
             toastMessage(context, message)
-            Log.d("WalletsFragment", "onViewCreated ERROR: $message")
         })
+
         fab.setOnClickListener {
-            showAddWalletDialog()
+            val action = WalletsFragmentDirections.actionAdd()
+            findNavController().navigate(action)
+        }
+
+        wallets_refresh.setOnRefreshListener {
+            walletsViewModel.refresh()
         }
     }
 
@@ -76,12 +73,5 @@ class WalletsFragment : Fragment(), Injectable {
             val action = WalletsFragmentDirections.actionNext(wallet.id)
             findNavController().navigate(action)
         }
-    }
-
-    private fun showAddWalletDialog() {
-        val action = WalletsFragmentDirections.actionAdd()
-        findNavController().navigate(action)
-        //val walletAddDialog = WalletAddDialog()
-        // walletAddDialog.show(childFragmentManager, "AddNewWallet")
     }
 }
