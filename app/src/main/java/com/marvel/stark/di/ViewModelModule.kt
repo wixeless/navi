@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.marvel.stark.di.factory.ViewModelFactory
 import com.marvel.stark.di.factory.ViewModelKey
-import com.marvel.stark.ui.dialog.AddWalletViewModel
+import com.marvel.stark.ui.dialog.WalletAddViewModel
 import com.marvel.stark.ui.walletinfo.home.HomeViewModel
 import com.marvel.stark.ui.walletinfo.payout.PayoutViewModel
 import com.marvel.stark.ui.walletinfo.worker.WorkerViewModel
@@ -25,8 +25,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AddWalletViewModel::class)
-    abstract fun bindAddWalletViewModel(addWalletViewModel: AddWalletViewModel): ViewModel
+    @ViewModelKey(WalletAddViewModel::class)
+    abstract fun bindAddWalletViewModel(walletAddViewModel: WalletAddViewModel): ViewModel
 
     @Binds
     @IntoMap

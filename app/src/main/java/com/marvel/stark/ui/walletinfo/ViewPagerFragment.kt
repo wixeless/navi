@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager.widget.ViewPager
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.ui.ToolbarViewModel
@@ -16,6 +16,7 @@ import com.marvel.stark.ui.walletinfo.home.HomeFragment
 import com.marvel.stark.ui.walletinfo.payout.PayoutFragment
 import com.marvel.stark.ui.walletinfo.worker.WorkerFragment
 import kotlinx.android.synthetic.main.fragment_view_pager.*
+import kotlin.math.abs
 
 /**Created by Jahongir on 6/15/2019.*/
 
@@ -37,7 +38,7 @@ class ViewPagerFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         setupViewPager()
         setupBottomNavigation()
-        refresh_layout.isEnabled = false
+        //refresh_layout.isEnabled = false
         activity?.let {
             toolbarViewModel = ViewModelProviders.of(it).get(ToolbarViewModel::class.java)
         }
@@ -53,29 +54,32 @@ class ViewPagerFragment : Fragment(), Injectable {
 
     private fun setupViewPager() {
         viewPager.adapter = getViewPagerAdapter()
-        viewPager.setPageTransformer(viewPagerTransformer)
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPager.setPageTransformer(true, viewPagerTransformer2)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 val menuItem = bottomNavigation.menu.getItem(position)
                 bottomNavigation.selectedItemId = menuItem.itemId
                 toolbarViewModel?.title?.postValue(menuItem.title.toString())
             }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
         })
     }
 
-    private fun getViewPagerAdapter(): FragmentStateAdapter {
+    private fun getViewPagerAdapter(): FragmentStatePagerAdapter {
         val fragments = arrayOf<Fragment>(HomeFragment.newInstance(walletId),
                 WorkerFragment.newInstance(walletId), PayoutFragment.newInstance(walletId))
-        return object : FragmentStateAdapter(this) {
-            override fun createFragment(position: Int) = fragments[position]
+        return object : FragmentStatePagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            override fun getItem(position: Int) = fragments[position]
 
-            override fun getItemCount() = fragments.size
+            override fun getCount() = fragments.size
 
         }
     }
 
-    private val viewPagerTransformer = ViewPager2.PageTransformer { page, position ->
+    private val viewPagerTransformer = ViewPager.PageTransformer { page, position ->
         page.apply {
             val pageWidth = width
             when {
@@ -94,6 +98,42 @@ class ViewPagerFragment : Fragment(), Injectable {
                 position <= 1 -> { // (0,1]
                     // Fade the page out.
                     alpha = 1 - position
+                }
+                else -> { // (1,+Infinity]
+                    // This page is way off-screen to the right.
+                    alpha = 0f
+                }
+            }
+        }
+    }
+
+    private val viewPagerTransformer2 = ViewPager.PageTransformer { page, position ->
+        val minScale = 0.75f
+        page.apply {
+            val pageWidth = width
+            when {
+                position < -1 -> { // [-Infinity,-1)
+                    // This page is way off-screen to the left.
+                    alpha = 0f
+                }
+                position <= 0 -> { // [-1,0]
+                    // Use the default slide transition when moving to the left page
+                    alpha = 1f
+                    translationX = 0f
+                    scaleX = 1f
+                    scaleY = 1f
+                }
+                position <= 1 -> { // (0,1]
+                    // Fade the page out.
+                    alpha = 1 - position
+
+                    // Counteract the default slide transition
+                    translationX = pageWidth * -position
+
+                    // Scale the page down (between MIN_SCALE and 1)
+                    val scaleFactor = (minScale + (1 - minScale) * (1 - abs(position)))
+                    scaleX = scaleFactor
+                    scaleY = scaleFactor
                 }
                 else -> { // (1,+Infinity]
                     // This page is way off-screen to the right.
