@@ -26,8 +26,6 @@ interface WalletDao : BaseDao<Wallet> {
 
     @Query("SELECT * FROM wallet")
     fun getWalletsList(): List<Wallet>
-
-
 }
 
 @Dao
