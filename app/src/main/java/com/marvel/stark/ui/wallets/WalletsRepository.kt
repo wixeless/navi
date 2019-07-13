@@ -76,7 +76,6 @@ class WalletsRepository @Inject constructor(private val ethermineService: Etherm
         }
     }
 
-
     private fun processResponse(response: ApiResponse<DashboardDto>) = response.body
 
     @WorkerThread

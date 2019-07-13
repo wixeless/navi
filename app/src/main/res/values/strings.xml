@@ -10,7 +10,7 @@
     <string name="select_pool">Select pool</string>
     <string name="select_coin">Select coin</string>
     <string name="wallet_name">Wallet name (optional)</string>
-    <string name="new_address">Add new wallet</string>
+    <string name="new_wallet">Add new wallet</string>
     <string name="scan">Scan</string>
     <string name="error_field_required">This field is required</string>
 
