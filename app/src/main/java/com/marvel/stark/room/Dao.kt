@@ -32,7 +32,8 @@ interface WalletDao : BaseDao<Wallet> {
 abstract class DashboardDao {
 
     @WorkerThread
-    fun insert(dashboard: DashboardDto) {
+    @Transaction
+    open suspend fun insert(dashboard: DashboardDto) {
         dashboard.wallet.lastSeen = System.currentTimeMillis()
         val walletId = insertWallet(dashboard.wallet)
         dashboard.workers.forEach { it.walletId = walletId }
@@ -41,7 +42,7 @@ abstract class DashboardDao {
 
     @WorkerThread
     @Transaction
-    open fun update(wallet: Wallet, dashboard: DashboardDto) {
+    open suspend fun update(wallet: Wallet, dashboard: DashboardDto) {
         dashboard.setWallet(wallet)
         dashboard.wallet.lastSeen = System.currentTimeMillis()
         dashboard.workers.forEach { it.walletId = dashboard.wallet.id }
@@ -51,16 +52,16 @@ abstract class DashboardDao {
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertWallet(wallet: Wallet): Long
+    abstract suspend fun insertWallet(wallet: Wallet): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertWorkers(workersList: List<Worker>)
+    abstract suspend fun insertWorkers(workersList: List<Worker>)
 
     @Query("DELETE FROM worker WHERE wallet_id=:walledId")
-    abstract fun deleteWorkers(walledId: Long)
+    abstract suspend fun deleteWorkers(walledId: Long)
 
     @Update
-    abstract fun updateWallet(wallet: Wallet)
+    abstract suspend fun updateWallet(wallet: Wallet)
 }
 
 @Dao
