@@ -10,26 +10,26 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
-import com.marvel.stark.models.AddWalletEntity
+import com.marvel.stark.models.WalletAddEntity
 import com.marvel.stark.models.Status.*
 import com.marvel.stark.utils.toastMessage
 import com.marvel.stark.utils.visible
-import kotlinx.android.synthetic.main.dialog_add_wallet.*
+import kotlinx.android.synthetic.main.dialog_wallet_add.*
 import javax.inject.Inject
 
 /**Created by Jahongir on 6/18/2019.*/
 
-class AddWalletDialog : BottomSheetDialogFragment(), Injectable {
+class WalletAddDialog : BottomSheetDialogFragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private val walletViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(AddWalletViewModel::class.java)
+        ViewModelProviders.of(this, viewModelFactory).get(WalletAddViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.dialog_add_wallet, container, false)
+        return inflater.inflate(R.layout.dialog_wallet_add, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,7 +59,7 @@ class AddWalletDialog : BottomSheetDialogFragment(), Injectable {
         } else {
             ""
         }
-        val walletEntity = AddWalletEntity(walletAddress, walletName)
+        val walletEntity = WalletAddEntity(walletAddress, walletName)
         walletViewModel.onAddWallet(walletEntity)
     }
 

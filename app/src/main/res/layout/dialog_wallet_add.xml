@@ -12,7 +12,7 @@
         android:layout_height="@dimen/bs_header_height"
         android:background="@drawable/bottom_sheet_header"
         android:gravity="center"
-        android:text="@string/new_address"
+        android:text="@string/new_wallet"
         android:textAlignment="gravity"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
