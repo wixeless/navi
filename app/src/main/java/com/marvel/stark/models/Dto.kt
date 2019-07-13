@@ -17,4 +17,4 @@ data class DashboardDto(@field:Json(name = "currentStatistics") val wallet: Wall
 }
 
 
-data class AddWalletEntity(val address: String, val name: String)
+data class WalletAddEntity(val address: String, val name: String)
