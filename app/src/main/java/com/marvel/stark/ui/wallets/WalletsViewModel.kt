@@ -1,7 +1,7 @@
 package com.marvel.stark.ui.wallets
 
 import androidx.lifecycle.*
-import com.marvel.stark.repository.Resource
+import com.marvel.stark.shared.result.Resource
 import com.marvel.stark.room.Wallet
 import javax.inject.Inject
 

@@ -14,7 +14,7 @@ import com.marvel.stark.R
 import com.marvel.stark.adapter.PayoutsAdapter
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
-import com.marvel.stark.models.Status.*
+import com.marvel.stark.shared.result.Status.*
 import com.marvel.stark.ui.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_payout.*
 import javax.inject.Inject

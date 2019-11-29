@@ -1,7 +1,6 @@
-package com.marvel.stark.repository
+package com.marvel.stark.shared.result
 
-import com.marvel.stark.models.Status
-import com.marvel.stark.models.Status.*
+import com.marvel.stark.shared.result.Status.*
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

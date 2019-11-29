@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.rest.service.EthermineService
 import com.marvel.stark.repository.NetworkResourceWithParams
-import com.marvel.stark.repository.Resource
 import com.marvel.stark.shared.retorift.ApiResponse
 import com.marvel.stark.room.DashboardDao
 import com.marvel.stark.room.Wallet
 import com.marvel.stark.room.WalletDao
+import com.marvel.stark.shared.result.Resource
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 

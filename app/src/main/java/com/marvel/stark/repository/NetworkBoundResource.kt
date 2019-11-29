@@ -5,6 +5,7 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.marvel.stark.shared.result.Resource
 import com.marvel.stark.shared.retorift.ApiResponse
 
 import kotlinx.coroutines.CoroutineScope

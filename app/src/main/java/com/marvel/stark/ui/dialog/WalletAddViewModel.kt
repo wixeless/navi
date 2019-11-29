@@ -3,8 +3,8 @@ package com.marvel.stark.ui.dialog
 import androidx.lifecycle.*
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.models.WalletAddEntity
-import com.marvel.stark.repository.Resource
 import com.marvel.stark.shared.result.AbsentLiveData
+import com.marvel.stark.shared.result.Resource
 import javax.inject.Inject
 
 /**Created by Jahongir on 6/18/2019.*/

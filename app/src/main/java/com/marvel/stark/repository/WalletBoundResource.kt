@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.marvel.stark.shared.retorift.ApiResponse
 import com.marvel.stark.room.Wallet
+import com.marvel.stark.shared.result.Resource
 import com.marvel.stark.utils.bgDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

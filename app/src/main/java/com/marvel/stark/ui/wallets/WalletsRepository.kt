@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.repository.ListBoundResource
-import com.marvel.stark.repository.Resource
+import com.marvel.stark.shared.result.Resource
 import com.marvel.stark.rest.service.EthermineService
 import com.marvel.stark.room.DashboardDao
 import com.marvel.stark.room.Wallet

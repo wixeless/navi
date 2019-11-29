@@ -1,7 +1,7 @@
 package com.marvel.stark.ui.payout
 
 import androidx.lifecycle.LiveData
-import com.marvel.stark.repository.Resource
+import com.marvel.stark.shared.result.Resource
 import com.marvel.stark.repository.WalletBoundResource
 import com.marvel.stark.shared.retorift.ApiResponse
 import com.marvel.stark.rest.service.EthermineService
