@@ -5,28 +5,23 @@ import com.marvel.stark.App
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
 import javax.inject.Singleton
 
 
 @Singleton
 @Component(
-    modules = [AndroidInjectionModule::class,
-        ActivityModule::class,
-        DatabaseModule::class,
-        NetworkModule::class]
+        modules = [AndroidInjectionModule::class,
+            ActivityModule::class,
+            DatabaseModule::class,
+            NetworkModule::class]
 )
-interface AppComponent {
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
 
-        @BindsInstance
-        fun baseUrl(url: String): Builder
+interface AppComponent : AndroidInjector<App> {
+    @Component.Factory
+    interface Factory {
 
-        fun build(): AppComponent
+        fun create(@BindsInstance application: Application,
+                   @BindsInstance baseUrl: String): AppComponent
     }
-
-    fun inject(app: App)
-
 }

@@ -1,7 +1,6 @@
 package com.marvel.stark.ui.wallets
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,8 @@ import com.marvel.stark.R
 import com.marvel.stark.adapter.WalletsAdapter
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
-import com.marvel.stark.models.Status.*
-import com.marvel.stark.ui.dialog.WalletAddDialog
+import com.marvel.stark.models.Status.ERROR
+import com.marvel.stark.models.Status.LOADING
 import com.marvel.stark.utils.toastMessage
 import kotlinx.android.synthetic.main.fragment_wallets.*
 import javax.inject.Inject
