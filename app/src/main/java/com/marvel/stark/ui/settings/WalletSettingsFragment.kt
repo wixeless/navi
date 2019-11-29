@@ -1,4 +1,4 @@
-package com.marvel.stark.ui
+package com.marvel.stark.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater

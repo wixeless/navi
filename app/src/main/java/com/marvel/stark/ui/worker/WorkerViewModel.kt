@@ -1,4 +1,4 @@
-package com.marvel.stark.ui.walletinfo.worker
+package com.marvel.stark.ui.worker
 
 import androidx.lifecycle.*
 import com.marvel.stark.repository.Resource

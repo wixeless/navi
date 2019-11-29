@@ -23,7 +23,7 @@
     <!--Wallet Info Fragment-->
     <string name="title_home">Home</string>
     <string name="title_workers">Workers</string>
-    <string name="title_earnings">Earnings</string>
+    <string name="title_payouts">Payouts</string>
 
     <!--Home Fragment-->
     <string name="immature">Immature</string>

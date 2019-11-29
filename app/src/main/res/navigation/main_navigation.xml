@@ -10,17 +10,19 @@
         android:name="com.marvel.stark.ui.wallets.WalletsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_wallets">
+
         <action
-            android:id="@+id/action_next"
-            app:destination="@id/viewpager_dest"
+            android:id="@+id/action_add_wallet"
+            app:destination="@id/wallet_add_dest" />
+
+        <action
+            android:id="@+id/action_open_wallet"
+            app:destination="@id/home_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out_right" />
 
-        <action
-            android:id="@+id/action_add"
-            app:destination="@id/wallet_add_dest" />
     </fragment>
 
     <dialog
@@ -30,26 +32,8 @@
         tools:layout="@layout/dialog_wallet_add" />
 
     <fragment
-        android:id="@+id/viewpager_dest"
-        android:name="com.marvel.stark.ui.walletinfo.ViewPagerFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_view_pager">
-        <argument
-            android:name="walledId"
-            android:defaultValue="-1L"
-            app:argType="long" />
-        <action
-            android:id="@+id/action_next"
-            app:destination="@id/wallets_settings_dest"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <fragment
         android:id="@+id/wallets_settings_dest"
-        android:name="com.marvel.stark.ui.WalletSettingsFragment"
+        android:name="com.marvel.stark.ui.settings.WalletSettingsFragment"
         android:label="WalletsFragment"
         tools:layout="@layout/fragment_wallet_settings">
         <argument
@@ -57,6 +41,29 @@
             android:defaultValue="-1L"
             app:argType="long" />
     </fragment>
+
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="com.marvel.stark.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="walletId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/worker_dest"
+        android:name="com.marvel.stark.ui.worker.WorkerFragment"
+        android:label="@string/title_workers"
+        tools:layout="@layout/fragment_worker" />
+
+    <fragment
+        android:id="@+id/payout_dest"
+        android:name="com.marvel.stark.ui.payout.PayoutFragment"
+        android:label="@string/title_payouts"
+        tools:layout="@layout/fragment_payout" />
 
 
 </navigation>

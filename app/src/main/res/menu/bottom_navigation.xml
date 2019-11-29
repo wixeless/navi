@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/home_dest"
         android:icon="@drawable/ic_home"
         android:orderInCategory="0"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_workers"
+        android:id="@+id/worker_dest"
         android:icon="@drawable/ic_worker"
         android:orderInCategory="1"
         android:title="@string/title_workers" />
 
     <item
-        android:id="@+id/navigation_earnings"
-        android:icon="@drawable/ic_earnings"
+        android:id="@+id/payout_dest"
+        android:icon="@drawable/ic_payouts"
         android:orderInCategory="2"
-        android:title="@string/title_earnings" />
+        android:title="@string/title_payouts" />
 
 </menu>

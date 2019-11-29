@@ -1,4 +1,4 @@
-package com.marvel.stark.ui.walletinfo.home
+package com.marvel.stark.ui.home
 
 import androidx.lifecycle.LiveData
 import com.marvel.stark.models.DashboardDto
@@ -11,7 +11,6 @@ import com.marvel.stark.room.Wallet
 import com.marvel.stark.room.WalletDao
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 /**Created by Jahongir on 6/24/2019.*/
 

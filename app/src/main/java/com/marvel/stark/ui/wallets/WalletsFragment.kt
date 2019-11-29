@@ -26,6 +26,8 @@ class WalletsFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+
+
     private val walletsViewModel: WalletsViewModel by viewModels { viewModelFactory }
 
     private val walletsAdapter = WalletsAdapter()
@@ -54,7 +56,7 @@ class WalletsFragment : Fragment(), Injectable {
         })
 
         fab.setOnClickListener {
-            val action = WalletsFragmentDirections.actionAdd()
+            val action = WalletsFragmentDirections.actionAddWallet()
             findNavController().navigate(action)
         }
 
@@ -67,7 +69,7 @@ class WalletsFragment : Fragment(), Injectable {
         wallets_rv.layoutManager = LinearLayoutManager(context)
         wallets_rv.adapter = walletsAdapter
         walletsAdapter.setWalletClickListener { wallet ->
-            val action = WalletsFragmentDirections.actionNext(wallet.id)
+            val action = WalletsFragmentDirections.actionOpenWallet(wallet.id)
             findNavController().navigate(action)
         }
     }

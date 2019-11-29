@@ -1,4 +1,4 @@
-package com.marvel.stark.ui.walletinfo.home
+package com.marvel.stark.ui.home
 
 import androidx.lifecycle.*
 import com.marvel.stark.repository.Resource

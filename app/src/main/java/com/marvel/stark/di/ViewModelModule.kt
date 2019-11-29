@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.marvel.stark.di.factory.ViewModelFactory
 import com.marvel.stark.di.factory.ViewModelKey
-import com.marvel.stark.ui.ToolbarViewModel
+import com.marvel.stark.ui.SharedViewModel
 import com.marvel.stark.ui.dialog.WalletAddViewModel
-import com.marvel.stark.ui.walletinfo.home.HomeViewModel
-import com.marvel.stark.ui.walletinfo.payout.PayoutViewModel
-import com.marvel.stark.ui.walletinfo.worker.WorkerViewModel
+import com.marvel.stark.ui.home.HomeViewModel
+import com.marvel.stark.ui.payout.PayoutViewModel
 import com.marvel.stark.ui.wallets.WalletsViewModel
+import com.marvel.stark.ui.worker.WorkerViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -31,6 +31,11 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(SharedViewModel::class)
+    abstract fun bindSharedViewModel(sharedViewModel: SharedViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(WalletsViewModel::class)
     abstract fun bindWalletsViewModel(walletsViewModel: WalletsViewModel): ViewModel
 
@@ -48,10 +53,5 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PayoutViewModel::class)
     abstract fun bindPayoutViewModel(workerViewModel: PayoutViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(ToolbarViewModel::class)
-    abstract fun bindToolbarViewModel(toolbarViewModel: ToolbarViewModel): ViewModel
 
 }

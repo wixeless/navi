@@ -1,4 +1,4 @@
-package com.marvel.stark.ui.walletinfo.home
+package com.marvel.stark.ui.home
 
 import android.os.Bundle
 import android.util.Log
@@ -6,15 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
 import com.marvel.stark.models.Status.*
 import com.marvel.stark.room.Wallet
+import com.marvel.stark.ui.SharedViewModel
 import com.marvel.stark.utils.Formatter
-import com.marvel.stark.utils.putArgs
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -22,29 +24,26 @@ import javax.inject.Inject
 
 class HomeFragment : Fragment(), Injectable {
 
-    companion object {
-        private val ARGS_BUNDLE = HomeFragment::class.java.name + ":Bundle"
-        fun newInstance(walletId: Long) = HomeFragment().putArgs {
-            putLong(ARGS_BUNDLE, walletId)
-        }
-    }
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
+    private val viewModel: HomeViewModel by viewModels { viewModelFactory }
 
-    private val walletId: Long by lazy {
-        arguments?.getLong(ARGS_BUNDLE) ?: throw RuntimeException("Wallet id missing")
-    }
+    private val sharedViewModel: SharedViewModel by activityViewModels { viewModelFactory }
+
+    private val safeArgs: HomeFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return layoutInflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        homeViewModel.setWalletId(walletId)
-        homeViewModel.wallets.observe(viewLifecycleOwner, Observer { resource ->
+        if (safeArgs.walletId > 0)
+            sharedViewModel.setWalletId(safeArgs.walletId)
+        sharedViewModel.walletId.observe(viewLifecycleOwner, Observer {
+            viewModel.setWalletId(walletId = it)
+        })
+        viewModel.wallets.observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {
                 SUCCESS -> {
                     resource.data?.let {

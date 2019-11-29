@@ -1,6 +1,6 @@
 package com.marvel.stark.di
 
-import com.marvel.stark.MainActivity
+import com.marvel.stark.ui.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
