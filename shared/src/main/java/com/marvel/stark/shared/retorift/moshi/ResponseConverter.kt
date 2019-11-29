@@ -1,7 +1,6 @@
-package com.marvel.stark.rest.moshi
+package com.marvel.stark.shared.retorift.moshi
 
-import com.marvel.stark.rest.ApiException
-import com.marvel.stark.rest.RestData
+import com.marvel.stark.shared.retorift.ApiException
 import com.squareup.moshi.Moshi
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -22,11 +21,11 @@ class ResponseConverterFactory(moshi: Moshi) : Converter.Factory() {
         val wrappedType = object : ParameterizedType {
             override fun getActualTypeArguments(): Array<Type> = arrayOf(type)
             override fun getOwnerType(): Type? = null
-            override fun getRawType(): Type = RestData::class.java
+            override fun getRawType(): Type = ApiWrapData::class.java
         }
         val moshiConverter: Converter<ResponseBody, *>? = moshiConverterFactory.responseBodyConverter(wrappedType, annotations, retrofit)
         @Suppress("UNCHECKED_CAST")
-        return ResponseBodyConverter(moshiConverter as Converter<ResponseBody, RestData<Any>>)
+        return ResponseBodyConverter(moshiConverter as Converter<ResponseBody, ApiWrapData<Any>>)
     }
 
     override fun requestBodyConverter(type: Type?, parameterAnnotations: Array<Annotation>,
@@ -35,7 +34,7 @@ class ResponseConverterFactory(moshi: Moshi) : Converter.Factory() {
     }
 }
 
-class ResponseBodyConverter<T>(private val converter: Converter<ResponseBody, RestData<T>>) : Converter<ResponseBody, T> {
+class ResponseBodyConverter<T>(private val converter: Converter<ResponseBody, ApiWrapData<T>>) : Converter<ResponseBody, T> {
 
     @Throws(IOException::class, ApiException::class)
     override fun convert(responseBody: ResponseBody): T {

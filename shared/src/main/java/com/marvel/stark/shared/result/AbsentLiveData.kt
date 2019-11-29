@@ -1,4 +1,4 @@
-package com.marvel.stark.utils
+package com.marvel.stark.shared.result
 
 import androidx.lifecycle.LiveData
 

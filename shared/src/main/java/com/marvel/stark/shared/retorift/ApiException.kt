@@ -1,4 +1,4 @@
-package com.marvel.stark.rest
+package com.marvel.stark.shared.retorift
 
 /**Created by Jahongir on 6/17/2019.*/
 

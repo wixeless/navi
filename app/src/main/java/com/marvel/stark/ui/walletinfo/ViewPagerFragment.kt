@@ -65,7 +65,7 @@ class ViewPagerFragment : Fragment(), Injectable {
             override fun onPageSelected(position: Int) {
                 val menuItem = bottomNavigation.menu.getItem(position)
                 bottomNavigation.selectedItemId = menuItem.itemId
-                toolbarViewModel?.title?.postValue(menuItem.title.toString())
+                toolbarViewModel.title.postValue(menuItem.title.toString())
             }
 
             override fun onPageScrollStateChanged(state: Int) {}

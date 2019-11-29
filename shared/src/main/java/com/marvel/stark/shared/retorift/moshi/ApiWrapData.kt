@@ -1,4 +1,4 @@
-package com.marvel.stark.rest
+package com.marvel.stark.shared.retorift.moshi
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -7,4 +7,4 @@ import com.squareup.moshi.JsonClass
 
 //General model with status and data
 @JsonClass(generateAdapter = true)
-data class RestData<T>(var status: String = "", var error: String = "", @field:Json(name = "data") val data: T)
+data class ApiWrapData<T>(var status: String = "", var error: String = "", @field:Json(name = "data") val data: T)

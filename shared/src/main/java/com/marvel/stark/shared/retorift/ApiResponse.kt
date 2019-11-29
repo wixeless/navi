@@ -1,7 +1,6 @@
-package com.marvel.stark.rest.livedata
+package com.marvel.stark.shared.retorift
 
 import android.util.Log
-import com.marvel.stark.rest.ApiException
 import retrofit2.Response
 
 @Suppress("MemberVisibilityCanBePrivate")

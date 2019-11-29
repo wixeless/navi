@@ -2,9 +2,8 @@ package com.marvel.stark.rest.service
 
 import androidx.lifecycle.LiveData
 import com.marvel.stark.models.DashboardDto
-import com.marvel.stark.rest.livedata.ApiResponse
 import com.marvel.stark.room.Payout
-import kotlinx.coroutines.Deferred
+import com.marvel.stark.shared.retorift.ApiResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,8 +21,7 @@ interface EthermineService {
     suspend fun fetchDashboardSuspend(@Path("address") address: String?): DashboardDto
 
     @GET("/miner/{address}/dashboard")
-    fun fetchDashboardDeferred(@Path("address") address: String): Deferred<ApiResponse<DashboardDto>>
-
+    suspend fun fetchDashboardDeferred(@Path("address") address: String): ApiResponse<DashboardDto>
 
     @GET("/miner/{address}/payouts")
     fun fetchPayoutsLiveData(@Path("address") address: String?): LiveData<ApiResponse<List<Payout>>>

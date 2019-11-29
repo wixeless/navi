@@ -8,7 +8,7 @@ import com.marvel.stark.rest.service.EthermineService
 import com.marvel.stark.repository.NetworkBoundResource
 import com.marvel.stark.repository.Resource
 import com.marvel.stark.room.DashboardDao
-import com.marvel.stark.utils.AbsentLiveData
+import com.marvel.stark.shared.result.AbsentLiveData
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 

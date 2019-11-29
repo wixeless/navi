@@ -3,7 +3,7 @@ package com.marvel.stark.ui.walletinfo.payout
 import androidx.lifecycle.LiveData
 import com.marvel.stark.repository.Resource
 import com.marvel.stark.repository.WalletBoundResource
-import com.marvel.stark.rest.livedata.ApiResponse
+import com.marvel.stark.shared.retorift.ApiResponse
 import com.marvel.stark.rest.service.EthermineService
 import com.marvel.stark.room.Payout
 import com.marvel.stark.room.PayoutDao

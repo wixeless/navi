@@ -1,6 +1,7 @@
-package com.marvel.stark.rest.livedata
+package com.marvel.stark.shared.retorift.adapters
 
 import androidx.lifecycle.LiveData
+import com.marvel.stark.shared.retorift.ApiResponse
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType

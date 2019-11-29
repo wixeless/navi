@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.models.WalletAddEntity
 import com.marvel.stark.repository.Resource
-import com.marvel.stark.utils.AbsentLiveData
+import com.marvel.stark.shared.result.AbsentLiveData
 import javax.inject.Inject
 
 /**Created by Jahongir on 6/18/2019.*/

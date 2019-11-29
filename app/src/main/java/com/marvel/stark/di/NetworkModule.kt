@@ -2,10 +2,10 @@ package com.marvel.stark.di
 
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import com.marvel.stark.rest.*
-import com.marvel.stark.rest.livedata.LiveDataCallAdapterFactory
+import com.marvel.stark.shared.retorift.adapters.LiveDataCallAdapterFactory
 import com.marvel.stark.rest.moshi.HashrateAdapter
-import com.marvel.stark.rest.moshi.ResponseConverterFactory
 import com.marvel.stark.rest.service.EthermineService
+import com.marvel.stark.shared.retorift.moshi.ResponseConverterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -23,7 +23,6 @@ class NetworkModule {
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
-                .addCallAdapterFactory(RestCallAdapterFactory())
                 .addConverterFactory(ResponseConverterFactory(moshi))
                 //.addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
