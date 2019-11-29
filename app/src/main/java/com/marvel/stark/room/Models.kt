@@ -7,9 +7,9 @@ import com.squareup.moshi.JsonClass
 
 /**Created by Jahongir on 6/15/2019.*/
 
-@JsonClass(generateAdapter = true)
 @Entity(tableName = "wallet")
-data class Wallet(@PrimaryKey(autoGenerate = true) var id: Long = 0,
+@JsonClass(generateAdapter = true)
+data class Wallet(@PrimaryKey(autoGenerate = true) var id: Long = 0L,
                   var address: String = "",
                   var coin: Coin = Coin.ETH,
                   var name: String = "",
@@ -18,6 +18,7 @@ data class Wallet(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                   @ColumnInfo(name = "reported_hashrate") var reportedHashrate: Long = 0L,
                   @ColumnInfo(name = "active_workers") var activeWorkers: Int = 0,
                   @ColumnInfo(name = "last_seen") var lastSeen: Long = 0L)
+
 
 @Entity(
         tableName = "worker",
@@ -29,12 +30,14 @@ data class Wallet(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                 onDelete = ForeignKey.CASCADE,
                 onUpdate = ForeignKey.CASCADE)]
 )
-data class Worker(@PrimaryKey(autoGenerate = true) val id: Long,
-                  @ColumnInfo(name = "wallet_id") var walletId: Long,
-                  @field:Json(name = "worker") val name: String,
-                  @ColumnInfo(name = "current_hashrate") val currentHashrate: Long,
-                  @ColumnInfo(name = "reported_hashrate") val reportedHashrate: Long,
-                  @ColumnInfo(name = "last_seen") val lastSeen: Long)
+@JsonClass(generateAdapter = true)
+data class Worker(@PrimaryKey(autoGenerate = true) val id: Long = 0L,
+                  @ColumnInfo(name = "wallet_id") var walletId: Long =-1L,
+                  @field:Json(name = "worker") val name: String = "",
+                  @ColumnInfo(name = "current_hashrate") val currentHashrate: Long =0L,
+                  @ColumnInfo(name = "reported_hashrate") val reportedHashrate: Long = 0L,
+                  @ColumnInfo(name = "last_seen") val lastSeen: Long = 0L)
+
 
 @Entity(
         tableName = "payout",
@@ -46,8 +49,9 @@ data class Worker(@PrimaryKey(autoGenerate = true) val id: Long,
                 onDelete = ForeignKey.CASCADE,
                 onUpdate = ForeignKey.CASCADE)]
 )
-data class Payout(@PrimaryKey(autoGenerate = true) val id: Long,
-                  @ColumnInfo(name = "wallet_id") var walletId: Long,
-                  val amount: Long,
-                  val paidOn: Long)
+@JsonClass(generateAdapter = true)
+data class Payout(@PrimaryKey(autoGenerate = true) val id: Long = 0L,
+                  @ColumnInfo(name = "wallet_id") var walletId: Long = -1L,
+                  val amount: Long = 0L,
+                  val paidOn: Long = 0L)
 

@@ -1,5 +1,6 @@
 package com.marvel.stark.rest.livedata
 
+import android.util.Log
 import com.marvel.stark.rest.ApiException
 import retrofit2.Response
 
@@ -13,6 +14,7 @@ class ApiResponse<T> {
         get() = code in 200..300
 
     constructor(error: Throwable) {
+        Log.e("ApiResponse", "Exception:", error)
         if (error is ApiException) {
             this.code = error.errorCode
             this.message = error.errorMessage
