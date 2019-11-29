@@ -10,7 +10,7 @@ import androidx.room.TypeConverters
 
 @Database(entities = [Wallet::class, Worker::class, Payout::class],
         version = 8, exportSchema = false)
-@TypeConverters(CoinConverter::class)
+@TypeConverters(RoomConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun walletDao(): WalletDao
     abstract fun workerDao(): WorkerDao
