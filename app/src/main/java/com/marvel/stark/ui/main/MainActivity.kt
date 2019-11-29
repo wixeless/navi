@@ -1,17 +1,16 @@
-package com.marvel.stark
+package com.marvel.stark.ui.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.idescout.sql.SqlScoutServer
+import com.marvel.stark.R
 import com.marvel.stark.di.factory.ViewModelFactory
-import com.marvel.stark.ui.ToolbarViewModel
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,21 +34,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope, HasAndroidInjector {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val toolbarViewModel: ToolbarViewModel by viewModels { viewModelFactory }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         SqlScoutServer.create(this, packageName)
         setupNavigation()
-        subscribeToolbarTitle()
-    }
-
-    private fun subscribeToolbarTitle() {
-        //val toolbarViewModel = ViewModelProviders.of(this).get(ToolbarViewModel::class.java)
-        toolbarViewModel.title.observe(this, Observer {
-            toolbar.title = it
-        })
     }
 
     private fun setupNavigation() {
@@ -59,6 +48,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, HasAndroidInjector {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        bottomNavigation.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

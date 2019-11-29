@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,5 +23,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:navGraph="@navigation/main_navigation" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@color/navigation_selector"
+        app:itemTextColor="@color/navigation_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
