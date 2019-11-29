@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
-import com.marvel.stark.di.factory.ViewModelFactory
+import com.marvel.stark.shared.di.ViewModelFactory
 import com.marvel.stark.room.Wallet
 import com.marvel.stark.shared.result.Status.*
 import com.marvel.stark.ui.SharedViewModel

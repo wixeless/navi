@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.idescout.sql.SqlScoutServer
 import com.marvel.stark.R
-import com.marvel.stark.di.factory.ViewModelFactory
+import com.marvel.stark.shared.di.ViewModelFactory
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_main.*

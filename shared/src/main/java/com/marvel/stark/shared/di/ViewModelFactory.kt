@@ -1,4 +1,4 @@
-package com.marvel.stark.di.factory
+package com.marvel.stark.shared.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

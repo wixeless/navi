@@ -2,8 +2,8 @@ package com.marvel.stark.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.marvel.stark.di.factory.ViewModelFactory
-import com.marvel.stark.di.factory.ViewModelKey
+import com.marvel.stark.shared.di.ViewModelFactory
+import com.marvel.stark.shared.di.ViewModelKey
 import com.marvel.stark.ui.SharedViewModel
 import com.marvel.stark.ui.dialog.WalletAddViewModel
 import com.marvel.stark.ui.home.HomeViewModel
