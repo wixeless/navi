@@ -6,15 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.marvel.stark.R
 import com.marvel.stark.adapter.PayoutsAdapter
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
 import com.marvel.stark.models.Status.*
-import com.marvel.stark.rest.service.EthermineService
 import com.marvel.stark.utils.putArgs
 import kotlinx.android.synthetic.main.fragment_payout.*
 import javax.inject.Inject
@@ -35,10 +34,7 @@ class PayoutFragment : Fragment(), Injectable {
 
     private val payoutsAdapter = PayoutsAdapter()
 
-    private val payoutViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(PayoutViewModel::class.java)
-    }
-
+    private val payoutViewModel: PayoutViewModel by viewModels { viewModelFactory }
 
     private val walletId: Long by lazy {
         arguments?.getLong(ARGS_BUNDLE) ?: throw RuntimeException("Wallet id missing")
@@ -59,7 +55,7 @@ class PayoutFragment : Fragment(), Injectable {
                     }
                 }
                 ERROR -> Log.d("PayoutFragment", "onViewCreated: ERROR: ${resource.message}")
-                LOADING ->{
+                LOADING -> {
                     resource.data?.let {
                         payoutsAdapter.update(it)
                     }
@@ -68,7 +64,7 @@ class PayoutFragment : Fragment(), Injectable {
         })
     }
 
-    private fun setupRecycleView(){
+    private fun setupRecycleView() {
         payouts_rv.layoutManager = LinearLayoutManager(context)
         payouts_rv.adapter = payoutsAdapter
     }

@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
+import com.marvel.stark.di.factory.ViewModelFactory
 import com.marvel.stark.ui.ToolbarViewModel
 import com.marvel.stark.ui.walletinfo.home.HomeFragment
 import com.marvel.stark.ui.walletinfo.payout.PayoutFragment
 import com.marvel.stark.ui.walletinfo.worker.WorkerFragment
 import kotlinx.android.synthetic.main.fragment_view_pager.*
+import javax.inject.Inject
 import kotlin.math.abs
 
 /**Created by Jahongir on 6/15/2019.*/
@@ -24,11 +26,15 @@ class ViewPagerFragment : Fragment(), Injectable {
 
     private val safeArgs: ViewPagerFragmentArgs by navArgs()
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+
     private val walletId: Long by lazy {
         safeArgs.walledId
     }
 
-    private var toolbarViewModel: ToolbarViewModel? = null
+    private val toolbarViewModel: ToolbarViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_view_pager, container, false)
@@ -39,9 +45,9 @@ class ViewPagerFragment : Fragment(), Injectable {
         setupViewPager()
         setupBottomNavigation()
         //refresh_layout.isEnabled = false
-        activity?.let {
+        /*activity?.let {
             toolbarViewModel = ViewModelProviders.of(it).get(ToolbarViewModel::class.java)
-        }
+        }*/
     }
 
     private fun setupBottomNavigation() {

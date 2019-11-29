@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
@@ -32,10 +32,7 @@ class HomeFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val homeViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
-    }
-
+    private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
 
     private val walletId: Long by lazy {
         arguments?.getLong(ARGS_BUNDLE) ?: throw RuntimeException("Wallet id missing")

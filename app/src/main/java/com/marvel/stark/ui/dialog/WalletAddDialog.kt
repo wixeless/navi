@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.di.factory.ViewModelFactory
-import com.marvel.stark.models.WalletAddEntity
 import com.marvel.stark.models.Status.*
+import com.marvel.stark.models.WalletAddEntity
 import com.marvel.stark.utils.toastMessage
 import com.marvel.stark.utils.visible
 import kotlinx.android.synthetic.main.dialog_wallet_add.*
@@ -24,8 +24,8 @@ class WalletAddDialog : BottomSheetDialogFragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val walletViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(WalletAddViewModel::class.java)
+    private val walletViewModel: WalletAddViewModel by viewModels {
+        viewModelFactory
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.marvel.stark.R
 import com.marvel.stark.adapter.WorkersAdapter
 import com.marvel.stark.di.factory.Injectable
@@ -39,9 +38,7 @@ class WorkerFragment : Fragment(), Injectable {
 
     private val workersAdapter = WorkersAdapter()
 
-    private val workerViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(WorkerViewModel::class.java)
-    }
+    private val workerViewModel: WorkerViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return layoutInflater.inflate(R.layout.fragment_worker, container, false)

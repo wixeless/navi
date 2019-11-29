@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.idescout.sql.SqlScoutServer
+import com.marvel.stark.di.factory.ViewModelFactory
 import com.marvel.stark.ui.ToolbarViewModel
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -30,7 +31,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope, HasAndroidInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private val toolbarViewModel: ToolbarViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +47,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, HasAndroidInjector {
     }
 
     private fun subscribeToolbarTitle() {
-        val toolbarViewModel = ViewModelProviders.of(this).get(ToolbarViewModel::class.java)
+        //val toolbarViewModel = ViewModelProviders.of(this).get(ToolbarViewModel::class.java)
         toolbarViewModel.title.observe(this, Observer {
             toolbar.title = it
         })
