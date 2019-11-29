@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--Base colors-->
-    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimary">#1a73e8</color>
     <color name="colorPrimaryVariant">#ffffff</color>
     <color name="colorSecondary">#1a73e8</color>
     <color name="colorBackground">#ffffff</color>
