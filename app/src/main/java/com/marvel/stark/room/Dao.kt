@@ -3,13 +3,20 @@ package com.marvel.stark.room
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.marvel.stark.models.DashboardDto
 
 
 /**Created by Jahongir on 6/15/2019.*/
 
 @Dao
-interface WalletDao : BaseDao<Wallet> {
+interface WalletDao {
+
+    @WorkerThread
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(wallet: Wallet): Long
+
+    @WorkerThread
+    @Update
+    suspend fun update(wallet: Wallet)
 
     @Query("SELECT * FROM wallet")
     fun getWallets(): LiveData<List<Wallet>>
@@ -29,45 +36,20 @@ interface WalletDao : BaseDao<Wallet> {
 }
 
 @Dao
-abstract class DashboardDao {
-
-    @WorkerThread
-    @Transaction
-    open suspend fun insert(dashboard: DashboardDto) {
-        dashboard.wallet.lastSeen = System.currentTimeMillis()
-        val walletId = insertWallet(dashboard.wallet)
-        dashboard.workers.forEach { it.walletId = walletId }
-        insertWorkers(dashboard.workers)
-    }
-
-    @WorkerThread
-    @Transaction
-    open suspend fun update(wallet: Wallet, dashboard: DashboardDto) {
-        dashboard.setWallet(wallet)
-        dashboard.wallet.lastSeen = System.currentTimeMillis()
-        dashboard.workers.forEach { it.walletId = dashboard.wallet.id }
-        deleteWorkers(dashboard.wallet.id)
-        updateWallet(dashboard.wallet)
-        insertWorkers(dashboard.workers)
-    }
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertWallet(wallet: Wallet): Long
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertWorkers(workersList: List<Worker>)
-
-    @Query("DELETE FROM worker WHERE wallet_id=:walledId")
-    abstract suspend fun deleteWorkers(walledId: Long)
-
-    @Update
-    abstract suspend fun updateWallet(wallet: Wallet)
-}
-
-@Dao
 interface WorkerDao : BaseDao<Worker> {
     @Query("SELECT * FROM worker WHERE wallet_id=:walledId")
     fun getWorkers(walledId: Long): LiveData<List<Worker>>
+
+    @WorkerThread
+    @Transaction
+    suspend fun cleanInsert(walledId: Long, workers: List<Worker>) {
+        deleteWorkers(walledId = walledId)
+        workers.forEach { it.walletId = walledId }
+        insertList(list = workers)
+    }
+
+    @Query("DELETE FROM worker WHERE wallet_id=:walledId")
+    suspend fun deleteWorkers(walledId: Long)
 }
 
 @Dao
@@ -77,9 +59,10 @@ abstract class PayoutDao {
 
     @WorkerThread
     @Transaction
-    open fun insert(walledId: Long, list: List<Payout>) {
-        deletePayouts(walledId)
-        insertPayouts(list)
+    open fun insert(walletId: Long, payouts: List<Payout>) {
+        deletePayouts(walletId)
+        payouts.forEach { it.walletId = walletId }
+        insertPayouts(payouts)
     }
 
     @Query("DELETE FROM payout WHERE wallet_id=:walledId")

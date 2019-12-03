@@ -9,11 +9,10 @@ import androidx.room.TypeConverters
  */
 
 @Database(entities = [Wallet::class, Worker::class, Payout::class],
-        version = 8, exportSchema = false)
+        version = 9, exportSchema = false)
 @TypeConverters(RoomConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun walletDao(): WalletDao
     abstract fun workerDao(): WorkerDao
-    abstract fun dashboardDao(): DashboardDao
     abstract fun payoutDao(): PayoutDao
 }

@@ -15,7 +15,7 @@ interface BaseDao<T> {
 
     @WorkerThread
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(list: List<T>)
+    suspend fun insertList(list: List<T>)
 
     @WorkerThread
     @Update

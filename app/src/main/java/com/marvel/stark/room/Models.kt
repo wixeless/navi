@@ -2,6 +2,7 @@ package com.marvel.stark.room
 
 import androidx.room.*
 import com.marvel.stark.models.Coin
+import com.marvel.stark.models.StatisticsDto
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -17,7 +18,18 @@ data class Wallet(@PrimaryKey(autoGenerate = true) var id: Long = 0L,
                   @ColumnInfo(name = "current_hashrate") var currentHashrate: Long = 0L,
                   @ColumnInfo(name = "reported_hashrate") var reportedHashrate: Long = 0L,
                   @ColumnInfo(name = "active_workers") var activeWorkers: Int = 0,
-                  @ColumnInfo(name = "last_seen") var lastSeen: Long = 0L)
+                  @ColumnInfo(name = "last_seen") var lastSeen: Long = 0L,
+                  @ColumnInfo(name = "last_update") var lastUpdate: Long = 0L) {
+
+    fun setStatistics(statisticsDto: StatisticsDto) {
+        this.unpaid = statisticsDto.unpaid
+        this.currentHashrate = statisticsDto.currentHashrate
+        this.reportedHashrate = statisticsDto.reportedHashrate
+        this.activeWorkers = statisticsDto.activeWorkers
+        this.lastSeen = System.currentTimeMillis()
+        this.lastUpdate = System.currentTimeMillis()
+    }
+}
 
 
 @Entity(
@@ -32,9 +44,9 @@ data class Wallet(@PrimaryKey(autoGenerate = true) var id: Long = 0L,
 )
 @JsonClass(generateAdapter = true)
 data class Worker(@PrimaryKey(autoGenerate = true) val id: Long = 0L,
-                  @ColumnInfo(name = "wallet_id") var walletId: Long =-1L,
+                  @ColumnInfo(name = "wallet_id") var walletId: Long = -1L,
                   @field:Json(name = "worker") val name: String = "",
-                  @ColumnInfo(name = "current_hashrate") val currentHashrate: Long =0L,
+                  @ColumnInfo(name = "current_hashrate") val currentHashrate: Long = 0L,
                   @ColumnInfo(name = "reported_hashrate") val reportedHashrate: Long = 0L,
                   @ColumnInfo(name = "last_seen") val lastSeen: Long = 0L)
 

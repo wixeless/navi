@@ -37,12 +37,6 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDashboardDao(database: AppDatabase): DashboardDao {
-        return database.dashboardDao()
-    }
-
-    @Provides
-    @Singleton
     fun providePayoutDao(database: AppDatabase): PayoutDao {
         return database.payoutDao()
     }
