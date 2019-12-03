@@ -39,8 +39,8 @@ class WorkerFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViewPager()
-        sharedViewModel.walletId.observe(viewLifecycleOwner, Observer {
-            //viewModel.setWalletId(walletId = it)
+        sharedViewModel.wallet.observe(viewLifecycleOwner, Observer {
+            viewModel.setWallet(wallet = it)
         })
         viewModel.workers.observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {

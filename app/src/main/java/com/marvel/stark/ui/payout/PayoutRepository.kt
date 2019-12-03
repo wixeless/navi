@@ -15,7 +15,6 @@ import javax.inject.Inject
 /**Created by Jahongir on 6/25/2019.*/
 
 class PayoutRepository @Inject constructor(private val ethermineService: EthermineService,
-                                           private val walletDao: WalletDao,
                                            private val payoutDao: PayoutDao) : BaseRepository() {
 
     fun fetchPayouts(wallet: Wallet): LiveData<Resource<List<Payout>>> {
