@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.marvel.stark.shared.result.Resource
 import com.marvel.stark.shared.retorift.ApiResponse
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,14 +52,11 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             when (response.isSuccessful) {
                 true -> {
                     //Dispatcher IO
-                    Log.d("NetworkBoundResource", "fetchFromNetwork1: ${Thread.currentThread().name}")
                     coroutineScope.launch(Dispatchers.IO) {
-                        //TODO processResponse can be null
-                        saveCallResult(processResponse(response)!!)
-                        Log.d("NetworkBoundResource", "fetchFromNetwork2: ${Thread.currentThread().name}")
+                        val processedResponse = processResponse(response)
+                        saveCallResult(processedResponse)
                         //Dispatcher Main
                         coroutineScope.launch {
-                            Log.d("NetworkBoundResource", "fetchFromNetwork3: ${Thread.currentThread().name}")
                             // we specially request a new live data,
                             // otherwise we will get immediately last cached value,
                             // which may not be updated with latest results received from network.
@@ -71,10 +67,10 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                     }
                 }
                 false -> {
+                    Log.d("NetworkResource", "fetchFromNetwork: ${response.message}")
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        //TODO:REFACTOR ERROR MESSAGE
-                        setValue(Resource.error(response.message!!, newData))
+                        setValue(Resource.error(response.message, newData))
                     }
                 }
             }
@@ -94,12 +90,12 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
     // Called to save the result of the API response into the database
     @WorkerThread
-    protected abstract suspend fun saveCallResult(item: RequestType)
+    protected abstract suspend fun saveCallResult(requestItem: RequestType?)
 
     // Called with the data in the database to decide whether to fetch
     // potentially updated data from the network.
     @MainThread
-    protected abstract fun shouldFetch(data: ResultType?): Boolean
+    protected open fun shouldFetch(data: ResultType?): Boolean = true
 
     // Called to get the cached data from the database.
     @MainThread

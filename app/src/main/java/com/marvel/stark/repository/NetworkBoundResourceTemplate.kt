@@ -7,13 +7,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.marvel.stark.shared.result.Resource
 import com.marvel.stark.shared.retorift.ApiResponse
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 // ResultType: Type for the Resource data.
 // RequestType: Type for the API response.
-abstract class NetworkResourceWithParams<ResultType, RequestType, ServiceParams>
+abstract class NetworkBoundResourceTemplate<ResultType, RequestType>
 @MainThread constructor(private val coroutineScope: CoroutineScope) {
 
     private val result = MediatorLiveData<Resource<ResultType>>()
@@ -24,7 +25,7 @@ abstract class NetworkResourceWithParams<ResultType, RequestType, ServiceParams>
             result.removeSource(dbSource)
             if (shouldFetch(data)) {
                 result.postValue(Resource.loading(null))
-                fetchFromNetwork(dbSource, data)
+                fetchFromNetwork(dbSource)
             } else {
                 result.addSource(dbSource) { newData ->
                     setValue(Resource.success(newData))
@@ -40,10 +41,8 @@ abstract class NetworkResourceWithParams<ResultType, RequestType, ServiceParams>
         }
     }
 
-    private fun fetchFromNetwork(dbSource: LiveData<ResultType>, data: ResultType) {
-        val params = getParams(data)
-        val apiResponse = createCall(params)
-
+    private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
+        val apiResponse = createCall()
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
         result.addSource(dbSource) { newData ->
             setValue(Resource.loading(newData))
@@ -54,13 +53,14 @@ abstract class NetworkResourceWithParams<ResultType, RequestType, ServiceParams>
             when (response.isSuccessful) {
                 true -> {
                     //Dispatcher IO
+                    Log.d("NetworkBoundResource", "fetchFromNetwork1: ${Thread.currentThread().name}")
                     coroutineScope.launch(Dispatchers.IO) {
-                        val processedResponse = processResponse(response)
-                        processedResponse?.let { body ->
-                            saveCallResult(body, data)
-                        }
+                        //TODO processResponse can be null
+                        saveCallResult(processResponse(response)!!)
+                        Log.d("NetworkBoundResource", "fetchFromNetwork2: ${Thread.currentThread().name}")
                         //Dispatcher Main
                         coroutineScope.launch {
+                            Log.d("NetworkBoundResource", "fetchFromNetwork3: ${Thread.currentThread().name}")
                             // we specially request a new live data,
                             // otherwise we will get immediately last cached value,
                             // which may not be updated with latest results received from network.
@@ -71,10 +71,10 @@ abstract class NetworkResourceWithParams<ResultType, RequestType, ServiceParams>
                     }
                 }
                 false -> {
-                    Log.d("NetworkResource", "fetchFromNetwork: ${response.message}")
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        setValue(Resource.error(response.message, newData))
+                        //TODO:REFACTOR ERROR MESSAGE
+                        setValue(Resource.error(response.message!!, newData))
                     }
                 }
             }
@@ -94,7 +94,7 @@ abstract class NetworkResourceWithParams<ResultType, RequestType, ServiceParams>
 
     // Called to save the result of the API response into the database
     @WorkerThread
-    protected abstract suspend fun saveCallResult(requestItem: RequestType, resultItem: ResultType)
+    protected abstract suspend fun saveCallResult(item: RequestType)
 
     // Called with the data in the database to decide whether to fetch
     // potentially updated data from the network.
@@ -105,9 +105,7 @@ abstract class NetworkResourceWithParams<ResultType, RequestType, ServiceParams>
     @MainThread
     protected abstract fun loadFromDb(): LiveData<ResultType>
 
-    protected abstract fun getParams(data: ResultType): ServiceParams?
-
     // Called to create the API call.
     @MainThread
-    protected abstract fun createCall(params: ServiceParams?): LiveData<ApiResponse<RequestType>>
+    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
 }
