@@ -9,9 +9,9 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
+import com.marvel.stark.models.WalletAddEntity
 import com.marvel.stark.shared.di.ViewModelFactory
 import com.marvel.stark.shared.result.Status.*
-import com.marvel.stark.models.WalletAddEntity
 import com.marvel.stark.utils.toastMessage
 import com.marvel.stark.utils.visible
 import kotlinx.android.synthetic.main.dialog_wallet_add.*

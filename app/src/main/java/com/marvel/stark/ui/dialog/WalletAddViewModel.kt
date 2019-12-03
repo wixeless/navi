@@ -1,25 +1,22 @@
 package com.marvel.stark.ui.dialog
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
+import com.marvel.stark.common.BaseViewModel
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.models.WalletAddEntity
-import com.marvel.stark.shared.result.AbsentLiveData
 import com.marvel.stark.shared.result.Resource
 import javax.inject.Inject
 
 /**Created by Jahongir on 6/18/2019.*/
 
-class WalletAddViewModel @Inject constructor(private val walletAddRepository: WalletAddRepository) : ViewModel() {
+class WalletAddViewModel @Inject constructor(walletAddRepository: WalletAddRepository) : BaseViewModel(walletAddRepository) {
 
     private val walletEntity = MutableLiveData<WalletAddEntity>()
 
-    val addWalletResult: LiveData<Resource<DashboardDto>>
-
-    init {
-        addWalletResult = walletEntity.switchMap {
-            walletEntity.value?.let { walletAddRepository.onAddWallet(it, viewModelScope) }
-                    ?: AbsentLiveData.create()
-        }
+    val addWalletResult: LiveData<Resource<DashboardDto>> = walletEntity.switchMap {
+        walletAddRepository.onAddWallet(it)
     }
 
     fun onAddWallet(newWalletEntity: WalletAddEntity) = walletEntity.postValue(newWalletEntity)
