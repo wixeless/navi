@@ -21,6 +21,10 @@ interface WalletDao {
     @Query("SELECT * FROM wallet")
     fun getWallets(): LiveData<List<Wallet>>
 
+    @WorkerThread
+    @Query("SELECT * FROM wallet")
+    suspend fun getWalletsSuspend(): List<Wallet>
+
     @Query("SELECT * FROM wallet WHERE id=:walledId")
     fun getWalletLiveData(walledId: Long): LiveData<Wallet>
 

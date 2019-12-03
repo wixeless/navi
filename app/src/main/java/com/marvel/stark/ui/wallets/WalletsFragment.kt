@@ -2,6 +2,7 @@ package com.marvel.stark.ui.wallets
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,11 +42,12 @@ class WalletsFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         setupWalletsRv()
         walletsViewModel.wallets.observe(this, Observer { resource ->
+            Log.d("WalletsFragment", "onViewCreated: ${resource.status} ${resource?.data}")
 
             wallets_refresh.isRefreshing = resource.status == LOADING
 
-            if (resource.status == ERROR)
-                toastMessage(context, resource.message)
+            /*if (resource.status == ERROR)
+                toastMessage(context, resource.message)*/
 
             resource.data?.let {
                 walletsAdapter.update(it)

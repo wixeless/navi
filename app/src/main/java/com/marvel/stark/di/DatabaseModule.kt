@@ -2,8 +2,8 @@ package com.marvel.stark.di
 
 import android.app.Application
 import androidx.room.Room
+import com.marvel.stark.models.DATABASE_NAME
 import com.marvel.stark.room.*
-import com.marvel.stark.utils.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import com.marvel.stark.R
+import com.marvel.stark.models.uiDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**Created by Jahongir on 6/18/2019.*/
-
-val uiDispatcher = Dispatchers.Main
-val bgDispatcher = Dispatchers.IO
 
 
 @SuppressLint("InflateParams")

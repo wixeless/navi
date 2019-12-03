@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.marvel.stark.models.DashboardDto
 import com.marvel.stark.room.Payout
 import com.marvel.stark.shared.retorift.ApiResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -17,9 +18,9 @@ interface EthermineService {
     fun fetchPayouts(@Path("address") address: String?): LiveData<ApiResponse<List<Payout>>>
 
     @GET("/miner/{address}/dashboard")
-    suspend fun fetchDashboardSuspend(@Path("address") address: String?): DashboardDto
+    suspend fun fetchDashboardSuspend(@Path("address") address: String?): Response<DashboardDto>
 
     @GET("/miner/{address}/payouts")
-    suspend fun fetchPayoutsSuspend(@Path("address") address: String?): DashboardDto
+    suspend fun fetchPayoutsSuspend(@Path("address") address: String?): Response<List<Payout>>
 
 }

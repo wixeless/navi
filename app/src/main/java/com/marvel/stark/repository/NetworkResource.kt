@@ -4,9 +4,9 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.marvel.stark.models.uiDispatcher
 import com.marvel.stark.shared.result.Resource
 import com.marvel.stark.shared.retorift.ApiResponse
-import com.marvel.stark.utils.uiDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
