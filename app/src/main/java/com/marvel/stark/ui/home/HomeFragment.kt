@@ -12,8 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
-import com.marvel.stark.shared.di.ViewModelFactory
 import com.marvel.stark.room.Wallet
+import com.marvel.stark.shared.di.ViewModelFactory
 import com.marvel.stark.shared.result.Status.*
 import com.marvel.stark.ui.SharedViewModel
 import com.marvel.stark.utils.Formatter
@@ -40,10 +40,11 @@ class HomeFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (safeArgs.walletId > 0)
             sharedViewModel.setWalletId(safeArgs.walletId)
-        sharedViewModel.walletId.observe(viewLifecycleOwner, Observer {
-            viewModel.setWalletId(walletId = it)
+
+        sharedViewModel.wallet.observe(viewLifecycleOwner, Observer {
+            viewModel.setWallet(wallet = it)
         })
-        viewModel.wallets.observe(viewLifecycleOwner, Observer { resource ->
+        viewModel.wallet.observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {
                 SUCCESS -> {
                     resource.data?.let {
