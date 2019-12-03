@@ -1,25 +1,17 @@
 package com.marvel.stark.ui.worker
 
-import androidx.lifecycle.*
-import com.marvel.stark.shared.result.Resource
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.switchMap
+import com.marvel.stark.common.BaseViewModel
 import com.marvel.stark.room.Worker
+import com.marvel.stark.shared.result.Resource
 import javax.inject.Inject
 
 /**Created by Jahongir on 6/24/2019.*/
 
-class WorkerViewModel @Inject constructor(workerRepository: WorkerRepository) : ViewModel() {
-    private val walletId = MutableLiveData<Long>()
+class WorkerViewModel @Inject constructor(workerRepository: WorkerRepository) : BaseViewModel(workerRepository) {
 
-    init {
-        workerRepository.initWithCoroutine(viewModelScope)
+    val workers: LiveData<Resource<List<Worker>>> = _wallet.switchMap {
+        workerRepository.fetchWorkers(it)
     }
-
-    fun setWalletId(walletId: Long) {
-        this.walletId.value = walletId
-    }
-
-    val workers: LiveData<Resource<List<Worker>>> = Transformations
-            .switchMap(walletId) { id ->
-                workerRepository.getWorkers(id)
-            }
 }

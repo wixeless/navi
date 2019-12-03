@@ -1,58 +1,50 @@
 package com.marvel.stark.ui.worker
 
 import androidx.lifecycle.LiveData
+import com.marvel.stark.common.BaseRepository
 import com.marvel.stark.models.DashboardDto
-import com.marvel.stark.shared.result.Resource
-import com.marvel.stark.repository.WalletBoundResource
-import com.marvel.stark.shared.retorift.ApiResponse
+import com.marvel.stark.models.updateThreshold
+import com.marvel.stark.repository.NetworkBoundResource
 import com.marvel.stark.rest.service.EthermineService
-import com.marvel.stark.room.*
-import kotlinx.coroutines.CoroutineScope
+import com.marvel.stark.room.Wallet
+import com.marvel.stark.room.WalletDao
+import com.marvel.stark.room.Worker
+import com.marvel.stark.room.WorkerDao
+import com.marvel.stark.shared.result.Resource
+import com.marvel.stark.shared.retorift.ApiResponse
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 /**Created by Jahongir on 6/24/2019.*/
 
 class WorkerRepository @Inject constructor(private val ethermineService: EthermineService,
                                            private val walletDao: WalletDao,
-                                           private val dashboardDao: DashboardDao,
-                                           private val workerDao: WorkerDao) : CoroutineScope {
+                                           private val workerDao: WorkerDao) : BaseRepository() {
 
-    override val coroutineContext: CoroutineContext
-        get() = coroutineScope.coroutineContext
+    fun fetchWorkers(wallet: Wallet): LiveData<Resource<List<Worker>>> {
+        return object : NetworkBoundResource<List<Worker>, DashboardDto>(viewModelScope) {
 
-    private lateinit var coroutineScope: CoroutineScope
-
-    fun initWithCoroutine(scope: CoroutineScope) {
-        this.coroutineScope = scope
-    }
-
-
-    fun getWorkers(walledId: Long): LiveData<Resource<List<Worker>>> {
-        return object : WalletBoundResource<List<Worker>, DashboardDto, String>(coroutineScope) {
-            override suspend fun saveCallResult(requestItem: DashboardDto, wallet: Wallet) {
-                dashboardDao.update(wallet, requestItem)
+            override suspend fun saveCallResult(requestItem: DashboardDto?) {
+                requestItem?.let { body ->
+                    wallet.setStatistics(statisticsDto = body.statistics)
+                    walletDao.update(wallet)
+                    workerDao.cleanInsert(walledId = wallet.id, workers = body.workers)
+                }
             }
 
             override fun shouldFetch(data: List<Worker>?): Boolean {
-                return true
+                val now = System.currentTimeMillis()
+                val diff = now - wallet.lastUpdate
+                return diff > updateThreshold
             }
 
             override fun loadFromDb(): LiveData<List<Worker>> {
-                return workerDao.getWorkers(walledId)
+                return workerDao.getWorkers(walledId = wallet.id)
             }
 
-            override fun getParams(wallet: Wallet): String? {
-                return wallet.address
+            override fun createCall(): LiveData<ApiResponse<DashboardDto>> {
+                return ethermineService.fetchDashboard(wallet.address)
             }
 
-            override fun loadWalletFromDb(): Wallet {
-                return walletDao.getWallet(walledId)
-            }
-
-            override fun createCall(params: String?): LiveData<ApiResponse<DashboardDto>> {
-                return ethermineService.fetchDashboardLiveData(params)
-            }
         }.asLiveData()
     }
 
