@@ -39,7 +39,7 @@ class PayoutFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecycleView()
         sharedViewModel.walletId.observe(viewLifecycleOwner, Observer {
-            viewModel.setWalletId(walletId = it)
+            //viewModel.setWalletId(walletId = it)
         })
         viewModel.payouts.observe(this, Observer { resource ->
             when (resource.status) {
