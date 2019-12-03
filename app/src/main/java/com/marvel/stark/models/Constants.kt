@@ -6,5 +6,6 @@ import kotlinx.coroutines.Dispatchers
 
 val uiDispatcher = Dispatchers.Main
 val bgDispatcher = Dispatchers.IO
+const val DATABASE_NAME = "navi"
 
 const val updateThreshold: Long = 600000//This is 10 min in millis

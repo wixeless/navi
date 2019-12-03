@@ -1,7 +1,6 @@
 package com.marvel.stark.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,10 @@ import com.marvel.stark.R
 import com.marvel.stark.di.factory.Injectable
 import com.marvel.stark.room.Wallet
 import com.marvel.stark.shared.di.ViewModelFactory
-import com.marvel.stark.shared.result.Status.*
+import com.marvel.stark.shared.result.Status.ERROR
 import com.marvel.stark.ui.SharedViewModel
 import com.marvel.stark.utils.Formatter
+import com.marvel.stark.utils.toastMessage
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -45,22 +45,11 @@ class HomeFragment : Fragment(), Injectable {
             viewModel.setWallet(wallet = it)
         })
         viewModel.wallet.observe(viewLifecycleOwner, Observer { resource ->
-            when (resource.status) {
-                SUCCESS -> {
-                    resource.data?.let {
-                        setWalletInfo(it)
-                    }
-                    Log.d("HomeFragment", "onViewCreated SUCCESS: ${resource.data}")
-                }
-                ERROR -> {
-                    Log.d("HomeFragment", "onViewCreated ERROR: ${resource.message}")
-                }
-                LOADING -> {
-                    Log.d("HomeFragment", "onViewCreated: LOADING ${resource.data}")
-                    resource.data?.let {
-                        setWalletInfo(it)
-                    }
-                }
+            if (resource.status == ERROR) {
+                toastMessage(context, resource.message)
+            }
+            resource.data?.let {
+                setWalletInfo(it)
             }
         })
     }
